@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/SpadeChain_backend"
+]
+resolver = "2"
