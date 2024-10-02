@@ -1,8 +1,8 @@
 {
   "canisters": {
     "SpadeChain_backend": {
-      "candid": "src/SpadeChain_backend/SpadeChain_backend.did",
-      "package": "SpadeChain_backend",
+      "candid": "src/SpadeChain_backend/SpadeChain_backend.did",  
+      "package": "spade_chain_backend",  
       "type": "rust"
     },
     "SpadeChain_frontend": {

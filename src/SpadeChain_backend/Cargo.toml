@@ -1,12 +1,14 @@
 [package]
-name = "SpadeChain_backend"
+name = "spade_chain_backend"  # The package name should be in snake_case
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["cdylib"]  # Required for canisters
 
 [dependencies]
-candid = "0.10"
-ic-cdk = "0.16"
-ic-cdk-timers = "0.10" # Feel free to remove this dependency if you don't need timers
+serde = { version = "1.0", features = ["derive"] }
+serde_cbor = "0.11"  # Optional: CBOR serialization (can be removed if not needed)
+candid = "0.10"  # Candid for ICP serialization
+ic-cdk = "0.16"  # Internet Computer Canister Development Kit
+ic-cdk-timers = "0.10"  # Optional timer library (can be removed if unnecessary)
