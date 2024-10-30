@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "src/SpadeChain_backend"
+    "src/GainChain_backend"
 ]
 resolver = "2"

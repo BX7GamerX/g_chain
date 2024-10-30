@@ -1,5 +1,5 @@
 import { html, render } from 'lit-html';
-import { SpadeChain_backend } from 'declarations/SpadeChain_backend';
+import { GainChain_backend } from 'declarations/GainChain_backend';
 import logo from './logo2.svg';
 
 class App {
@@ -12,7 +12,7 @@ class App {
   #handleSubmit = async (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value;
-    this.greeting = await SpadeChain_backend.greet(name);
+    this.greeting = await GainChain_backend.greet(name);
     this.#render();
   };
 

@@ -1,5 +1,5 @@
 [package]
-name = "spade_chain_backend"  # The package name should be in snake_case
+name = "gain_chain_backend"  # The package name should be in snake_case
 version = "0.1.0"
 edition = "2021"
 
