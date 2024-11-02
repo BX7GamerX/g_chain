@@ -1,6 +1,9 @@
 use candid::CandidType;
 use serde::{Deserialize, Serialize};  // Serde is now correctly imported
 use candid::Principal;  // Correct import for Principal
+mod neural_network;
+use neural_network::NeuralNetwork;
+//******************************************************************************************************* */
 
 #[derive(Clone, Debug, CandidType, Serialize, Deserialize)]
 struct Contract {
@@ -43,9 +46,12 @@ impl Contract {
         Contract { id, name, owner, data }
     }
 }
-
+use serde_json::json;
 // A simple greeting function
 #[ic_cdk::query]
 fn greet(name: String) -> String {
-    format!("Hello, {}!", name)
+    let nn = NeuralNetwork::new(3, 4, 2, 0.01);
+        let user_data = json!([0.5, -0.1, 0.3]);
+        let recommendations = nn.generate_recommendations(&user_data);
+    format!("Hello, {}!\n{}", name, recommendations)
 }
