@@ -1,5 +1,5 @@
 [package]
-name = "gain_chain_backend"  # The package name should be in snake_case
+name = "gain_chain_backend"
 version = "0.1.0"
 edition = "2021"
 
@@ -8,11 +8,20 @@ crate-type = ["cdylib"]
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
-serde_cbor = "0.11"  # Optional: CBOR serialization (can be removed if not needed)
-candid = "0.10"  # Candid for ICP serialization
-ic-cdk = "0.16"  # Internet Computer Canister Development Kit
-ic-cdk-timers = "0.10"  # Optional timer library (can be removed if unnecessary)
 serde_json = "1.0"
+candid = "0.10"
+ic-cdk = "0.16"
+ic-cdk-timers = "0.10"
 ndarray = "0.15"
+
 getrandom = { version = "0.2.15", features = ["js"] }
-rand = "0.8"
+
+
+ic-cdk-macros = "0.16" # verify that this matches the IC version
+
+
+
+
+
+
+
