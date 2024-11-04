@@ -1,21 +1,3 @@
-/*use std::collections::HashMap;
-use candid::{CandidType, Principal};
-use serde::{Deserialize, Serialize};
-use serde_json::json;
-use ic_cdk::{api, caller};
-use ic_cdk::Principal;
-//use ic_cdk::export::Principal; // Use IC's export for compatibility
-mod models;
-mod services;
-
-use crate::services::user_service::{
-    create_user as user_create, get_user as user_get, follow_user as user_follow,
-};
-use crate::services::post_service::{
-    create_post as post_create, get_post as post_get, like_post as post_like,
-};
-use crate::services::recommendation_service::NeuralNetwork;
-*/
 use std::collections::HashMap;
 use candid::{CandidType, Principal};
 use serde::{Deserialize, Serialize};
@@ -95,7 +77,9 @@ pub fn create_post(content: String, media_url: Option<String>) -> String {
 pub fn like_post(id: u64) -> String {
     post_like(id)
 }
-pub fn initialize_recommender(input_size: usize, hidden_size: usize, output_size: usize, learning_rate: f64) {
+//use ic_cdk_macros::init;
+#[ic_cdk_macros::init]
+fn initialize_recommender(input_size: usize, hidden_size: usize, output_size: usize, learning_rate: f64) {
     let network = NeuralNetwork::new(input_size, hidden_size, output_size, learning_rate);
     RECOMMENDER.with(|recommender| *recommender.borrow_mut() = Some(network));
 }
@@ -117,9 +101,8 @@ pub fn greet(name: String) -> String {
         "Generated post content".to_string(),
         Some("https://example.com/image.png".to_string())
     );
-
-    let user_data = json!([0.5, 0.8, 0.3]); // Example user data for recommendations
-
+    initialize_recommender(3, 4, 2, 0.01);
+    let user_data = json!([0.5, 0.8, 0.3]); // Example data for recommendation
     let recommendations = generate_recommendation(user_data);
 
     format!("Hello, {}! Post creation result: {}\nRecommendations: {}", name, post_result, recommendations)
