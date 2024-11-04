@@ -1,14 +1,32 @@
-use crate::models::post::Post;
-use ic_cdk::{caller, api::time};
-use candid::Principal;
-use std::collections::HashMap;
-use std::cell::RefCell;
+// This module contains functions for creating and managing posts on the social network.
+// The posts are stored in a thread-local hashmap, where the key is the post ID and the value is the Post struct.
+//
+// The Post struct contains the post author, content, media URL, likes, and creation time.
+
+use crate::models::post::Post;  // Import the Post struct from the models module
+use ic_cdk::{  // Import the IC CDK library
+    caller,  // A function that returns the ID of the current caller
+    api::time,  // A function that returns the current time in nanoseconds
+};
+use candid::Principal;  // Import the Principal type from the Candid library
+use std::collections::HashMap;  // Import the HashMap struct from the standard library
+use std::cell::RefCell;  // Import the RefCell struct from the standard library, which is used to create a thread-local hashmap.
 
 thread_local! {
     static POSTS: RefCell<HashMap<u64, Post>> = RefCell::new(HashMap::new());
 }
 
-// Function to create a new post
+
+/// Creates a new post with the provided information.
+///
+/// # Arguments
+///
+/// * `content` - String content of the post.
+/// * `media_url` - Optional media URL associated with the post.
+///
+/// # Returns
+///
+/// * `Post` - The newly created post.
 pub fn create_post(content: String, media_url: Option<String>) -> Post {
     let post_id = time() as u64;  // Using timestamp as unique post ID
     let author = caller();
@@ -26,12 +44,26 @@ pub fn create_post(content: String, media_url: Option<String>) -> Post {
     new_post
 }
 
-// Function to retrieve a post
+
+/// Retrieves a post by its unique post ID.
+///
+/// # Arguments
+///
+/// * `post_id` - A 64-bit unsigned integer representing the unique identifier of the post.
+///
+/// # Returns
+///
+/// * `Option<Post>` - Returns `Some(Post)` if the post is found, otherwise `None`.
 pub fn get_post(post_id: u64) -> Option<Post> {
-    POSTS.with(|posts| posts.borrow().get(&post_id).cloned())
+    // Access the POSTS thread-local storage
+    POSTS.with(|posts| {
+        // Attempt to get the post from the hashmap and return a cloned instance if found
+        posts.borrow().get(&post_id).cloned()
+    })
 }
 
-// Function for liking a post
+/// Like a post with the given `post_id`. Returns an error if the post doesn't exist
+/// or if the user has already liked the post.
 pub fn like_post(post_id: u64) -> String {
     let user_id = caller();
     POSTS.with(|posts| {
@@ -44,6 +76,7 @@ pub fn like_post(post_id: u64) -> String {
                 return format!("User {} already liked post {}", user_id, post_id);
             }
         }
+        // Post not found
         format!("Post {} not found", post_id)
     })
 }

@@ -1,14 +1,38 @@
+// This module contains functions for managing users in the system.
+//
+// It uses a thread-local store to keep track of all users.
+//
+// # Safety
+//
+// This module is not thread-safe, so it is not safe to access it from multiple threads.
 use crate::models::user::User;
 use ic_cdk::{caller, api::time};
 use candid::Principal;
 use std::collections::HashMap;
 use std::cell::RefCell;
 
+/// A thread-local store of all users.
+///
+/// This is used to keep track of all users in the system.
+///
+/// # Safety
+///
+/// This is a thread-local store, so it is not safe to access it from multiple threads.
 thread_local! {
     static USERS: RefCell<HashMap<Principal, User>> = RefCell::new(HashMap::new());
 }
 
-// Function to create a new user
+
+/// Create a new user.
+///
+/// # Arguments
+///
+/// * `username` - The username for the new user.
+/// * `bio` - An optional bio for the new user.
+///
+/// # Returns
+///
+/// The newly created `User`.
 pub fn create_user(username: String, bio: Option<String>) -> User {
     let user_id = caller();
     let new_user = User {
@@ -24,24 +48,45 @@ pub fn create_user(username: String, bio: Option<String>) -> User {
     new_user
 }
 
-// Function to get a user's data
+/// Retrieve a user by their `Principal` ID.
+///
+/// # Arguments
+///
+/// * `user_id` - The `Principal` ID of the user to retrieve.
+///
+/// # Returns
+///
+/// An `Option<User>` containing the retrieved user, or `None` if no user is found.
 pub fn get_user(user_id: Principal) -> Option<User> {
     USERS.with(|users| users.borrow().get(&user_id).cloned())
 }
 
-// Function for following another user
+
+/// Allows the current user to follow another user.
+///
+/// # Arguments
+///
+/// * `target_user_id` - The `Principal` ID of the user to be followed.
+///
+/// # Returns
+///
+/// A `String` message indicating the result of the follow operation.
 pub fn follow_user(target_user_id: Principal) -> String {
-    let user_id = caller();
+    let user_id = caller(); // Get the ID of the current user
     if user_id == target_user_id {
+        // Check if the user is trying to follow themselves
         return "Users cannot follow themselves.".to_string();
     }
 
     USERS.with(|users| {
         let mut users = users.borrow_mut();
         if let Some(target_user) = users.get_mut(&target_user_id) {
+            // Check if the target user exists
             if !target_user.followers.contains(&user_id) {
+                // If not already following, add the current user to the target's followers
                 target_user.followers.push(user_id);
                 if let Some(current_user) = users.get_mut(&user_id) {
+                    // Add the target user to the current user's following list
                     current_user.following.push(target_user_id);
                 }
                 format!("User {} is now following {}", user_id, target_user_id)
@@ -49,7 +94,7 @@ pub fn follow_user(target_user_id: Principal) -> String {
                 format!("User {} is already following {}", user_id, target_user_id)
             }
         } else {
-            format!("User {} not found", target_user_id)
+            format!("User {} not found", target_user_id) // Target user doesn't exist
         }
     })
 }
