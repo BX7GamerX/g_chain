@@ -1,19 +1,19 @@
 {
   "canisters": {
-    "SpadeChain_backend": {
-      "candid": "src/SpadeChain_backend/SpadeChain_backend.did",
-      "package": "SpadeChain_backend",
+    "GainChain_backend": {
+      "candid": "src/GainChain_backend/GainChain_backend.did",
+      "package": "GainChain_backend",
       "type": "rust"
     },
-    "SpadeChain_frontend": {
+    "GainChain_frontend": {
       "dependencies": [
-        "SpadeChain_backend"
+        "GainChain_backend"
       ],
       "source": [
-        "src/SpadeChain_frontend/dist"
+        "src/GainChain_frontend/dist"
       ],
       "type": "assets",
-      "workspace": "SpadeChain_frontend"
+      "workspace": "GainChain_frontend"
     },
     "internet_identity": {
       "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
