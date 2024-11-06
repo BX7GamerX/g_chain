@@ -1,5 +1,6 @@
 import React from "react";
-import './css/HomePage.css'
+import './css/HomePage.css';
+import Footer from "./Footer";
 // Placeholder images
 const flowchartImage = "path/to/flowchart.jpg"; // Replace with actual image path
 const benefitsImage = "path/to/benefits.jpg"; // Replace with actual image path
@@ -151,6 +152,7 @@ const LandingPage = () => {
       <TechStack />
       <Testimonials />
       <CallToAction />
+      <Footer />
     </div>
   );
 };
