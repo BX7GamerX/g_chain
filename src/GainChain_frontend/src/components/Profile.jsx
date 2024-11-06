@@ -1,63 +1,45 @@
-import React, { useState } from 'react';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBBtn, MDBContainer, MDBRow, MDBCol, MDBModal, MDBModalBody, MDBModalHeader } from 'mdb-react-ui-kit';
+import React from 'react';
 
-const Profile = ({ user, projects }) => {
-  const [modal, setModal] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const toggleModal = (project) => {
-    setSelectedProject(project);
-    setModal(!modal);
+function Profile() {
+  // Mock user data
+  const user = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    projects: [
+      { id: 1, title: "Project Alpha", description: "A web application for task management." },
+      { id: 2, title: "Project Beta", description: "A mobile app for social networking." },
+    ]
   };
 
   return (
-    <MDBContainer>
-      <MDBCard className="my-5">
-        <MDBCardBody>
-          <MDBRow>
-            <MDBCol md="4">
-              <MDBCardImage
-                src={user.profilePicture || "defaultProfilePic.jpg"}
-                alt={`${user.name}'s profile picture`}
-                className="img-fluid rounded-circle"
-              />
-            </MDBCol>
-            <MDBCol md="8">
-              <MDBCardTitle>{user.name}</MDBCardTitle>
-              <p>{user.bio}</p>
-              <p><strong>Skills:</strong> {user.skills.join(', ')}</p>
-            </MDBCol>
-          </MDBRow>
-        </MDBCardBody>
-      </MDBCard>
+    <div className="min-h-screen bg-black text-white p-8">
+      <div className="container mx-auto max-w-2xl bg-gray-900 rounded-lg shadow-xl p-6">
+        <h2 className="text-3xl font-bold mb-4 text-yellow-500 text-center">My Profile</h2>
+        
+        {/* User Info Section */}
+        <div className="mb-8 p-4 border-2 border-yellow-500 rounded-lg">
+          <h3 className="text-xl font-semibold text-yellow-400">Name</h3>
+          <p className="text-gray-300">{user.name}</p>
 
-      <h4>Projects</h4>
-      <MDBRow>
-        {projects.map((project) => (
-          <MDBCol md="4" className="mb-4" key={project.id}>
-            <MDBCard>
-              <MDBCardImage src={project.image} alt={project.title} className="img-fluid" />
-              <MDBCardBody>
-                <MDBCardTitle>{project.title}</MDBCardTitle>
-                <MDBBtn color="primary" onClick={() => toggleModal(project)}>View Details</MDBBtn>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        ))}
-      </MDBRow>
+          <h3 className="text-xl font-semibold text-yellow-400 mt-4">Email</h3>
+          <p className="text-gray-300">{user.email}</p>
+        </div>
 
-      <MDBModal isOpen={modal} toggle={() => toggleModal(null)}>
-        <MDBModalHeader toggle={() => toggleModal(null)}>
-          {selectedProject?.title}
-        </MDBModalHeader>
-        <MDBModalBody>
-          <p><strong>Description:</strong> {selectedProject?.description}</p>
-          <p><strong>Technologies:</strong> {selectedProject?.technologies.join(', ')}</p>
-          <p><strong>Link:</strong> <a href={selectedProject?.link} target="_blank" rel="noopener noreferrer">{selectedProject?.link}</a></p>
-        </MDBModalBody>
-      </MDBModal>
-    </MDBContainer>
+        {/* Projects Section */}
+        <div>
+          <h3 className="text-2xl font-semibold mb-4 text-yellow-500">Projects</h3>
+          <ul>
+            {user.projects.map((project) => (
+              <li key={project.id} className="mb-6 p-4 bg-gray-800 border-2 border-yellow-500 rounded-lg">
+                <h4 className="font-bold text-lg text-yellow-400">{project.title}</h4>
+                <p className="text-gray-300">{project.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   );
-};
+}
 
 export default Profile;
