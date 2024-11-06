@@ -1,3 +1,8 @@
+#[ic_cdk::query]
+fn greet(name: String) -> String {
+    format!("Hello, {}!", name)
+}
+
 use reqwest::Client;
 use ic_cdk_macros::update;
 use serde_json::Value;
