@@ -60,7 +60,7 @@ const Navbar = () => {
             <NavLink className="styled-link" to="/about" activeClassName="active" onClick={toggleMenu}>About</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="styled-link" to="/services" activeClassName="active" onClick={toggleMenu}>GET STARTED</NavLink>
+            <NavLink className="styled-link" to="/signup" activeClassName="active" onClick={toggleMenu}>GET STARTED</NavLink>
           </li>
         </ul>
       </div>

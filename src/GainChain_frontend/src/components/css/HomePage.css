@@ -14,8 +14,8 @@
 
 /* Hero Section */
 .hero {
-  background: #333; /* Dark background for hero section */
-  color: #fff;
+  background: #2d2d2d; /* Charcoal Gray */
+  color: #f5f5f5; /* White Smoke */
   padding: 5rem 0;
   text-align: center;
 }
@@ -23,11 +23,13 @@
 .hero h1 {
   font-size: 3rem;
   font-weight: bold;
+  color: #ffd700; /* Gold */
 }
 
 .hero p {
   font-size: 1.25rem;
   margin: 1rem 0;
+  color: #fffff0; /* Ivory */
 }
 
 .cta-buttons {
@@ -36,8 +38,8 @@
 
 .btn {
   padding: 0.75rem 1.5rem;
-  background-color: #ff7a00; /* Gain Chain orange */
-  color: white;
+  background-color: #ffd700; /* Gold */
+  color: #2d2d2d; /* Charcoal Gray */
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
@@ -46,11 +48,11 @@
 }
 
 .btn-primary {
-  background-color: #ff7a00; /* Primary button color */
+  background-color: #ffd700; /* Gold */
 }
 
 .btn:hover {
-  background-color: #ff5700; /* Darker orange on hover */
+  background-color: #b08d57; /* Metallic Bronze */
 }
 
 /* How It Works Section */
@@ -63,11 +65,13 @@
 .how-it-works h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: #000000; /* Black */
 }
 
 .how-it-works p {
   font-size: 1.125rem;
   margin-bottom: 2rem;
+  color: #fffff0; /* Ivory */
 }
 
 .steps-list {
@@ -79,6 +83,7 @@
 .steps-list li {
   font-size: 1.125rem;
   margin: 1rem 0;
+  color: #2d2d2d; /* Charcoal Gray */
 }
 
 .how-it-works img {
@@ -91,12 +96,14 @@
 /* Benefits Section */
 .benefits-section {
   padding: 4rem 0;
+  background-color: #2d2d2d; /* Charcoal Gray */
 }
 
 .benefits-section h2 {
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2rem;
+  color: #ffd700; /* Gold */
 }
 
 .benefits-grid {
@@ -116,10 +123,12 @@
 .benefit h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  color: #2d2d2d; /* Charcoal Gray */
 }
 
 .benefit p {
   font-size: 1rem;
+  color: #2d2d2d; /* Charcoal Gray */
 }
 
 .benefits-section img {
@@ -139,12 +148,14 @@
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2rem;
+  color: #000000; /* Black */
 }
 
 .tech-stack p {
   font-size: 1.125rem;
   text-align: center;
   margin-bottom: 2rem;
+  color: #fffff0; /* Ivory */
 }
 
 .stack-grid {
@@ -164,10 +175,12 @@
 .stack-item h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  color: #2d2d2d; /* Charcoal Gray */
 }
 
 .stack-item p {
   font-size: 1rem;
+  color: #2d2d2d; /* Charcoal Gray */
 }
 
 .tech-stack img {
@@ -180,12 +193,14 @@
 /* Testimonials Section */
 .testimonials {
   padding: 4rem 0;
+  background-color: #2d2d2d; /* Charcoal Gray */
 }
 
 .testimonials h2 {
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2rem;
+  color: #ffd700; /* Gold */
 }
 
 .testimonial-grid {
@@ -205,11 +220,13 @@
 .testimonial p {
   font-size: 1.125rem;
   margin-bottom: 1rem;
+  color: #2d2d2d; /* Charcoal Gray */
 }
 
 .testimonial span {
   font-size: 1rem;
   font-weight: bold;
+  color: #2d2d2d; /* Charcoal Gray */
 }
 
 .testimonial img {
@@ -224,21 +241,24 @@
 /* Call to Action Section */
 .cta-section {
   padding: 5rem 0;
-  background-color: #ff7a00; /* CTA section with orange background */
-  color: white;
+  background-color: #ffd700; /* Gold */
+  color: #2d2d2d; /* Charcoal Gray */
   text-align: center;
 }
 
 .cta-section h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: #000000; /* Black */
 }
 
 .cta-section p {
   font-size: 1.25rem;
   margin-bottom: 2rem;
+  color: #2d2d2d; /* Charcoal Gray */
 }
 
+/* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
   .benefits-grid,
   .stack-grid,

@@ -1,0 +1,106 @@
+/* General styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.my-5 {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+/* Header Styling */
+h2.fw-bold {
+  font-weight: bold;
+  color: gold; /* Orange color */
+}
+
+h2.fw-bold.mb-5 {
+  margin-bottom: 2rem;
+}
+
+/* Input Fields Styling */
+.MDBInput {
+  margin-bottom: 1.5rem;
+}
+
+/* Button Styling */
+.MDBBtn {
+  background-color: #ff6f00; /* Orange color */
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.MDBBtn:hover {
+  background-color: #e65c00; /* Darker orange on hover */
+}
+
+/* Internet Identity Button */
+.MDBBtn.ii-button {
+  background-color: #005bff; /* Blue color for II button */
+  color: white;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  width: 100%; /* Ensures the button takes full width */
+}
+
+.MDBBtn.ii-button:hover {
+  background-color: #0042cc; /* Darker blue on hover */
+}
+
+/* Image Styling */
+img.w-100.rounded-4.shadow-4 {
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+img.w-100.rounded-4.shadow-4:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Layout adjustments for mobile */
+@media (max-width: 768px) {
+  .g-0 {
+    flex-direction: column;
+  }
+
+  .w-100 {
+    width: 100% !important;
+  }
+
+  .my-5 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .MDBCardBody {
+    padding: 2rem;
+  }
+
+  .MDBBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .MDBInput {
+    font-size: 14px;
+  }
+
+  .h2 {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    border-radius: 10px;
+  }
+}

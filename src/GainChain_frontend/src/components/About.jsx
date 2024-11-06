@@ -15,59 +15,58 @@ const About = () => {
         <section className="about-us">
           <h2>Who We Are</h2>
           <p>
-            Urban Renewed Ltd is a one-stop construction development and engineering company delivering creative, cost-effective, and energy-efficient building engineering solutions. With over 15 years of experience, we have partnered and collaborated with registered building professionals, engineers, and contractors to offer our expertise in electrical and ICT services, plumbing, security systems, and civil & structural engineering.
+            Gain Chain AI is a cutting-edge decentralized platform that integrates Artificial Intelligence and blockchain to revolutionize the way users interact with digital content. Our goal is to empower individuals and communities to engage with content more meaningfully while earning rewards for their participation. By leveraging AI, blockchain, and innovative data-sharing technologies, we are creating a fair and secure ecosystem for users across the globe.
           </p>
           <p>
-            We are on a mission to drive positive change in the built environment, and our commitment to sustainability and innovation is at the heart of everything we do. By this, we are Edge Certified (DfGE), U.S. LEED Certified, and a member of the UN Global Compact.
+            With a commitment to privacy, security, and community governance, Gain Chain AI seeks to ensure that users control their own data and are rewarded for their interactions. Our platform uses the Internet Computer Protocol (ICP) and other decentralized technologies to create a seamless and user-friendly experience for people to earn digital assets as they engage with content.
           </p>
           <p>
-            Since our inception, we have worked closely with clients in various sectors and project developments to provide services that are not only technically sound but also environmentally responsible. Our team of highly qualified engineers, financial analysts, and project managers brings a wealth of knowledge and experience in building convenient, unique, and modern projects.
+            Our team consists of passionate professionals from diverse fields, including AI, blockchain, data science, and software development. We are dedicated to creating a platform that is not only innovative but also sustainable, ensuring that the ecosystem benefits both users and the broader digital landscape.
           </p>
           <p>
-            Our approach is grounded in strong ethical values, teamwork, and respect. We strive to build trust with our clients by delivering projects that meet and exceed expectations.
+            Our approach is driven by principles of transparency, inclusivity, and innovation. We aim to build a platform that serves the needs of everyday users, from creators to everyday consumers, by ensuring that everyone can participate in the digital economy and benefit from it.
           </p>
         </section>
       </header>
 
       <section className="mission-vision">
-      <div className="vision">
-  <h2>VISION</h2>
-  <p>
-    {showFullVision
-      ? (
-        <>
-          To be the real estate developer of choice creating affordable, sustainable, eco-friendly buildings in Africa.
-          <br /><br />
-          Achieving this vision requires a combination of strategic planning, partnerships, innovation, and deep knowledge of local markets. Below are the main key pointers driving us:
-          <br /><br />
-          1. <strong>Research & Feasibility Studies:</strong> Conducting extensive research on local real estate markets across Africa to understand the specific needs, preferences, and regulatory environments of each region.
-          <br /><br />
-          2. <strong>Focusing on Sustainable and Eco-Friendly Building Practices:</strong> Sourcing locally available, sustainable materials such as bamboo, compressed earth blocks, or recycled materials. Integrating solar power, rainwater harvesting, natural ventilation, and energy-efficient appliances in our projects.
-          <br /><br />
-          3. <strong>Green Certification Training:</strong> Gaining certifications such as LEED (Leadership in Energy and Environmental Design) or EDGE (Excellence in Design for Greater Efficiencies) to enhance our brand credibility in eco-friendly development.
-          <br /><br />
-          4. <strong>Leveraging Public-Private Partnerships:</strong> Collaborating with local governments and international organizations to access grants, subsidies, or land at lower costs, especially for affordable housing projects.
-          <br /><br />
-          5. <strong>Securing Funding:</strong> Utilizing an innovative blend of financing options, including traditional financing, impact investing, and other creative funding mechanisms.
-        </>
-      )
-      : "To be the real estate developer of choice creating affordable, sustainable, eco-friendly buildings in Africa."
-    }
-  </p>
-  <button className="read-more-btn" onClick={toggleVision}>
-    {showFullVision ? "Read Less" : "Read More"}
-  </button>
-</div>
-
+        <div className="vision">
+          <h2>VISION</h2>
+          <p>
+            {showFullVision
+              ? (
+                <>
+                  To be the leading decentralized platform that empowers users to participate in the digital economy through AI-driven insights, community governance, and blockchain technology.
+                  <br /><br />
+                  Our vision is to create an inclusive, sustainable, and secure ecosystem for digital content engagement where users earn rewards for meaningful interactions. We achieve this through:
+                  <br /><br />
+                  1. <strong>AI-Driven Insights:</strong> Leveraging artificial intelligence to provide users with personalized content recommendations, data insights, and rewards based on their interactions.
+                  <br /><br />
+                  2. <strong>Blockchain Technology:</strong> Ensuring transparency and security in all transactions, enabling users to trust the platform with their data and interactions.
+                  <br /><br />
+                  3. <strong>Community Governance:</strong> Allowing users to have a say in the platform's development and decision-making through decentralized governance mechanisms.
+                  <br /><br />
+                  4. <strong>Inclusive Participation:</strong> Creating an open platform where users from all backgrounds can engage, earn rewards, and contribute to the growth of the ecosystem.
+                  <br /><br />
+                  5. <strong>Sustainable Growth:</strong> Focusing on long-term growth strategies, fostering partnerships, and utilizing innovative technologies to ensure that the platform scales responsibly.
+                </>
+              )
+              : "To be the leading decentralized platform that empowers users to participate in the digital economy through AI-driven insights, community governance, and blockchain technology."
+            }
+          </p>
+          <button className="read-more-btn" onClick={toggleVision}>
+            {showFullVision ? "Read Less" : "Read More"}
+          </button>
+        </div>
 
         <div className="purpose">
           <h2>MISSION</h2>
           <p>
             {showFullMission
-              ? `To Offer Convenient, Unique and Modern building construction solutions through streamlined project management, transparent communication, and on-time delivery.
+              ? `To revolutionize the digital economy by providing a decentralized platform where users can engage with content, earn rewards, and participate in governance decisions in a transparent, secure, and user-centric ecosystem.
                 
-                Through collaboration with local real estate agencies, architects, engineers, contractors, and government bodies, it has helped us gain insights into regional trends, regulations, and potential project sites. Further, the use of Building Information Modeling (BIM) helps us plan and execute construction projects more efficiently, identify cost-saving opportunities, and ensure sustainable building practices are maintained throughout the project lifecycle.`
-              : "To Offer Convenient, Unique and Modern building construction solutions through streamlined project management, transparent communication, and on-time delivery."}
+                Our mission is to leverage the power of AI and blockchain to create a more equitable and rewarding digital experience for everyone. By working with global communities, technology experts, and industry leaders, Gain Chain AI is building the next generation of digital platforms that align with the values of fairness, transparency, and decentralization.`
+              : "To revolutionize the digital economy by providing a decentralized platform where users can engage with content, earn rewards, and participate in governance decisions in a transparent, secure, and user-centric ecosystem."}
           </p>
           <button className="read-more-btn" onClick={toggleMission}>
             {showFullMission ? "Read Less" : "Read More"}
