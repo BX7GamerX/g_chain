@@ -1,8 +1,16 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './css/Footer.css';
 import logo from '../images/GAIN CHAIN AI.png'; 
 
 const Footer = () => {
+  const location = useLocation();
+
+  // Check if the current path is the homepage
+  if (location.pathname !== '/') {
+    return null;
+  }
+
   return (
     <footer id="general-footer-unique">
       {/* Footer content */}
