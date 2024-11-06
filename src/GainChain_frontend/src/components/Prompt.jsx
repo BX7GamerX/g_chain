@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Prompt() {
   const [idea, setIdea] = useState("");
@@ -8,6 +10,7 @@ function Prompt() {
   const [frontend, setFrontend] = useState("React");
   const [backend, setBackend] = useState("Flask");
   const [generatedFiles, setGeneratedFiles] = useState(null);
+  const [previewLoading, setPreviewLoading] = useState(false);
 
   // Function to handle the submission of the project idea
   const submitIdea = async () => {
@@ -46,6 +49,17 @@ function Prompt() {
       frontend: mockFiles.frontend[frontend],
       backend: mockFiles.backend[backend],
     });
+  };
+
+  // Function to simulate generating a website preview with toastify
+  const generatePreview = () => {
+    setPreviewLoading(true);
+    
+    // Simulate delay for preview generation
+    setTimeout(() => {
+      setPreviewLoading(false);
+      toast.info("Website preview is ready! (Not functional for now.)");
+    }, 2000);
   };
 
   return (
@@ -134,8 +148,20 @@ function Prompt() {
                 {generatedFiles.backend}
               </pre>
             </div>
+
+            {/* Button to simulate website preview */}
+            <button
+              onClick={generatePreview}
+              disabled={previewLoading}
+              className="mt-6 py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-md"
+            >
+              {previewLoading ? "Generating Preview..." : "Generate Website Preview"}
+            </button>
           </div>
         )}
+
+        {/* Toast Container for Toast Notifications */}
+        <ToastContainer />
       </div>
     </div>
   );
