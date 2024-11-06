@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
+  const navigate = useNavigate();
+  
   // Mock user data
   const user = {
     name: "John Doe",
@@ -9,6 +12,11 @@ function Profile() {
       { id: 1, title: "Project Alpha", description: "A web application for task management." },
       { id: 2, title: "Project Beta", description: "A mobile app for social networking." },
     ]
+  };
+
+  // Function to navigate to the Prompt page
+  const goToPromptPage = () => {
+    navigate('/prompt');
   };
 
   return (
@@ -36,6 +44,14 @@ function Profile() {
               </li>
             ))}
           </ul>
+
+          {/* Add Project Button */}
+          <button
+            onClick={goToPromptPage}
+            className="flex items-center mt-6 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-md"
+          >
+            <span className="mr-2 text-xl">+</span> Add Project
+          </button>
         </div>
       </div>
     </div>

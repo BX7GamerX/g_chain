@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './css/About.css';
 import Footer from './Footer';
+import Navbar from './NavBar';
 
 const About = () => {
   const [showFullVision, setShowFullVision] = useState(false);
@@ -10,7 +11,9 @@ const About = () => {
   const toggleMission = () => setShowFullMission(!showFullMission);
 
   return (
+
     <div className="about-page">
+      <Navbar />
       <header className="about-headr">
         <section className="about-us">
           <h2>Who We Are</h2>
@@ -73,10 +76,6 @@ const About = () => {
           </button>
         </div>
       </section>
-
-      <div>
-        <Footer />
-      </div>
     </div>
   );
 };

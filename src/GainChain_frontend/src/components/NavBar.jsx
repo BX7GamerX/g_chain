@@ -6,18 +6,14 @@ import './css/NavBar.css';
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // State for mobile menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleScroll = () => {
-    if (window.scrollY > 50) {
-      setSticky(true);
-    } else {
-      setSticky(false);
-    }
+    setSticky(window.scrollY > 50);
   };
-  
+
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen); // Toggle menu state on click
+    setMenuOpen(prev => !prev);
   };
 
   useEffect(() => {
@@ -44,7 +40,12 @@ const Navbar = () => {
         </div>
 
         {/* Hamburger Icon for Mobile Menu */}
-        <div className="hamburger" onClick={toggleMenu}>
+        <div
+          className={`hamburger ${menuOpen ? 'open' : ''}`}
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
           <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>

@@ -1,5 +1,7 @@
 import React from "react";
 import Footer from "./Footer";
+import NavBar from "./NavBar";
+
 // Placeholder images
 const flowchartImage = "path/to/flowchart.jpg"; // Replace with actual image path
 const benefitsImage = "path/to/benefits.jpg"; // Replace with actual image path
@@ -141,6 +143,7 @@ const CallToAction = () => {
 const LandingPage = () => {
   return (
     <div className="bg-gray-900 text-white">
+      <NavBar />
       <HeroSection />
       <HowItWorks />
       <BenefitsSection />

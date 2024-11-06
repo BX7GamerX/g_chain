@@ -3,16 +3,16 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import HomePage from './components/HomePage';
 import About from './components/About';
-import NavBar from './components/NavBar';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Profile from './components/Profile';
+import Prompt from './components/Prompt';
 
 
 const App = () => {
   return (
     <Router>
-      <NavBar />
+
       <Routes>
 
         <Route path="/" element={<HomePage />} />
@@ -20,6 +20,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/prompt" element={<Prompt />} />
+
       </Routes>
     </Router>
   );
