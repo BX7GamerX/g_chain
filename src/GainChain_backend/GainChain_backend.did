@@ -1,3 +1,4 @@
 service : {
     "greet": (text) -> (text) query;
+    "generate_code": (text, text) -> (text);
 }
