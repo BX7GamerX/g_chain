@@ -1,88 +1,90 @@
 import React from 'react';
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput, MDBIcon, MDBRow, MDBCol, MDBCheckbox } from 'mdb-react-ui-kit';
-import './css/Signup.css';
+import { FaFacebookF, FaTwitter, FaGoogle, FaGithub } from 'react-icons/fa';
 
 function Signup() {
   // Handle II Authentication here (placeholder for now)
   const handleIIAuth = () => {
-    // You can trigger II authentication API call here
     console.log("Initiate Internet Identity Login");
   };
 
   return (
-    <MDBContainer fluid className="my-5">
-      <MDBRow className="g-0 align-items-center">
-        <MDBCol col="6">
-          <MDBCard
-            className="my-5 cascading-right"
-            style={{
-              background: 'hsla(0, 0%, 100%, 0.75)', 
-              backdropFilter: 'blur(15px)',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-            }}
-          >
-            <MDBCardBody className="p-5 shadow-5 text-center">
-              <h2 className="fw-bold mb-5 text-orange">Sign up now</h2>
-              <a href="/login">Already have an account?LOGIN</a>
-              <MDBRow>
-                <MDBCol col="6">
-                  <MDBInput wrapperClass="mb-4" label="First name" id="form1" type="text" />
-                </MDBCol>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="container mx-auto my-5 px-5">
+        <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
+          {/* Signup Form */}
+          <div className="md:w-1/2 p-8">
+            <h2 className="text-2xl font-bold mb-6 text-orange-500 text-center">Sign up now</h2>
+            <p className="text-center text-gray-500 mb-6">
+              Already have an account? <a href="/login" className="text-blue-500">LOGIN</a>
+            </p>
 
-                <MDBCol col="6">
-                  <MDBInput wrapperClass="mb-4" label="Last name" id="form2" type="text" />
-                </MDBCol>
-              </MDBRow>
+            <div className="flex gap-4">
+              <input
+                type="text"
+                placeholder="First name"
+                className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
+              />
+              <input
+                type="text"
+                placeholder="Last name"
+                className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
+              />
+            </div>
 
-              <MDBInput wrapperClass="mb-4" label="Email" id="form3" type="email" />
-              <MDBInput wrapperClass="mb-4" label="Password" id="form4" type="password" />
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
+            />
 
-              <div className="d-flex justify-content-center mb-4">
-                <MDBCheckbox name="flexCheck" value="" id="flexCheckDefault" label="Subscribe to our newsletter" />
+            <div className="flex items-center justify-center mb-4">
+              <input type="checkbox" id="newsletter" className="mr-2" />
+              <label htmlFor="newsletter" className="text-gray-600">
+                Subscribe to our newsletter
+              </label>
+            </div>
+
+            <button
+              onClick={handleIIAuth}
+              className="w-full py-3 mb-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+            >
+              Sign up with Internet Identity
+            </button>
+
+            <button
+              className="w-full py-3 mb-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+            >
+              Sign up
+            </button>
+
+            <div className="text-center text-gray-600 mt-4">
+              <p>or sign up with:</p>
+              <div className="flex justify-center gap-4 mt-3">
+                <a href="#" className="text-blue-600">
+                  <FaFacebookF />
+                </a>
+                <a href="#" className="text-blue-400">
+                  <FaTwitter />
+                </a>
+                <a href="#" className="text-red-500">
+                  <FaGoogle />
+                </a>
+                <a href="#" className="text-gray-800">
+                  <FaGithub />
+                </a>
               </div>
+            </div>
+          </div>
 
-              {/* Internet Identity button */}
-              <MDBBtn className="w-100 mb-4" size="md" onClick={handleIIAuth} style={{ backgroundColor: '#ff6f00' }}>
-                Sign up with Internet Identity
-              </MDBBtn>
-
-              <MDBBtn className="w-100 mb-4" size="md" style={{ backgroundColor: '#ff6f00' }}>
-                Sign up
-              </MDBBtn>
-
-              <div className="text-center">
-                <p>or sign up with:</p>
-
-                <MDBBtn tag="a" color="none" className="mx-3" style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon="facebook-f" size="sm" />
-                </MDBBtn>
-
-                <MDBBtn tag="a" color="none" className="mx-3" style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon="twitter" size="sm" />
-                </MDBBtn>
-
-                <MDBBtn tag="a" color="none" className="mx-3" style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon="google" size="sm" />
-                </MDBBtn>
-
-                <MDBBtn tag="a" color="none" className="mx-3" style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon="github" size="sm" />
-                </MDBBtn>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-
-        <MDBCol col="6">
-          <img
-            src="../images/aiimage.jpg"
-            className="w-100 rounded-4 shadow-4"
-            alt="AI themed image"
-            fluid
-          />
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+          
+        </div>
+      </div>
+    </div>
   );
 }
 

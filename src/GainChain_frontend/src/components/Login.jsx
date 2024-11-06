@@ -1,51 +1,56 @@
 import React from 'react';
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBRow,
-  MDBCol,
-  MDBInput,
-  MDBCheckbox
-}
-from 'mdb-react-ui-kit';
-import './css/Login.css'
 
 function Login() {
   return (
-    <MDBContainer className='my-5'>
-      <MDBCard>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="md:flex">
 
-        <MDBRow className='g-0 d-flex align-items-center'>
+          {/* Image Section */}
+          <div className="md:w-1/3 hidden md:block">
+            <img
+              src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg"
+              alt="phone"
+              className="w-full h-full object-cover rounded-l-lg"
+            />
+          </div>
 
-          <MDBCol md='4'>
-            <MDBCardImage src='https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg' alt='phone' className='rounded-t-5 rounded-tr-lg-0' fluid />
-          </MDBCol>
+          {/* Form Section */}
+          <div className="w-full md:w-2/3 p-8">
+            <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Sign In</h2>
+            
+            <div className="space-y-4">
+              <input
+                type="email"
+                id="form1"
+                placeholder="Email address"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-100"
+              />
+              
+              <input
+                type="password"
+                id="form2"
+                placeholder="Password"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-100"
+              />
+            </div>
 
-          <MDBCol md='8'>
+            <div className="flex items-center justify-between mt-4">
+              <label className="flex items-center">
+                <input type="checkbox" className="mr-2 rounded" />
+                <span className="text-gray-600">Remember me</span>
+              </label>
+              <a href="#" className="text-blue-500 hover:underline">Forgot password?</a>
+            </div>
 
-            <MDBCardBody>
+            <button className="w-full mt-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+              Sign in
+            </button>
+          </div>
 
-              <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email'/>
-              <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
-
-              <div className="d-flex justify-content-between mx-4 mb-4">
-                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-                <a href="!#">Forgot password?</a>
-              </div>
-
-              <MDBBtn className="mb-4 w-100">Sign in</MDBBtn>
-
-            </MDBCardBody>
-
-          </MDBCol>
-
-        </MDBRow>
-
-      </MDBCard>
-    </MDBContainer>
+        </div>
+      </div>
+    </div>
   );
 }
 
