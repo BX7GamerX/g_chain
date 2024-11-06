@@ -1,0 +1,132 @@
+/* General Page Styles for about*/
+.about-page {
+  font-family: 'Arial', sans-serif;
+  color: #333; 
+  
+}
+
+/* Header Section */
+.about-header {
+  background: url('../images/logo2.jpeg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  padding: 180px 0;
+  text-align: center;
+  position: relative;
+}
+
+.about-header h1 {
+  position: relative;
+  z-index: 2;
+  font-size: 36px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.about-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+  z-index: 1;
+}
+
+/* Mission and Vision Section */
+.mission-vision {
+  padding: 50px 20px;
+  background-color: #f0f0f0; /* Light gray background */
+  border-top: 5px solid #EC7C14; /* Orange color */
+  border-bottom: 3px solid #f0f0f0; 
+  text-align: center;
+}
+
+.mission-vision h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 3px solid #e68369;
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+
+
+.mission-vision p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555555; /* Medium gray color */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.vision, .purpose {
+  margin-bottom: 40px;
+  
+}
+
+/* About Us Section */
+.about-us {
+  padding: 50px 20px;
+  background-color: #ffffff; /* White background */
+  color: #333;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), /* Semi-transparent layer */
+    url('../images/urbanModel.jpg'); /* Background image */
+  background-repeat: no-repeat; /* Prevent background image from repeating */
+  background-size: cover; /* Ensure the image covers the entire section */
+  background-position: center; /* Center the image */
+}
+
+
+.about-us h2 {
+  font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 3px solid #e68369;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.about-us p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+/* Responsive Styles */
+@media screen and (min-width: 768px) {
+  .mission-vision, .about-us {
+      padding: 60px 40px;
+  }
+
+  .mission-vision p, .about-us p {
+      font-size: 18px;
+  }
+
+  
+}
+
+@media screen and (max-width: 767px) {
+  .about-header h1 {
+      font-size: 28px; /* Adjusted for smaller screens */
+  }
+
+  .mission-vision, .about-us {
+      padding: 30px 10px; /* Reduced padding for mobile */
+  }
+
+  .mission-vision p, .about-us p {
+      font-size: 14px; /* Smaller font size for better readability on mobile */
+  }
+}

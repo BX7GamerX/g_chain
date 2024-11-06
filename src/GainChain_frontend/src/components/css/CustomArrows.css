@@ -1,0 +1,46 @@
+/* CustomArrows.css */
+
+/* General arrow styling */
+.slick-arrow {
+  font-size: 24px;
+  color: #EC7C14; /* Bright Orange color for arrows */
+  background-color: rgba(0, 0, 0, 0.4); /* Slightly darker semi-transparent background */
+  border: none;
+  border-radius: 50%;
+  width: 50px; /* Increased width for better usability */
+  height: 50px; /* Increased height for better usability */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+  position: absolute; /* Positioning the arrow */
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%); /* Center vertically */
+}
+
+.slick-arrow-left {
+  left: 15px; /* Position from the left */
+}
+
+.slick-arrow-right {
+  right: 15px; /* Position from the right */
+}
+
+.slick-arrow::before {
+  font-family: 'slick';
+  font-size: 24px;
+  color: #EC7C14; /* Match arrow color */
+  content: attr(data-icon); /* Use data attribute for the arrow content */
+}
+
+.slick-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.6); /* Darker background on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.slick-arrow:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px #EC7C14; /* Add custom focus outline for accessibility */
+}

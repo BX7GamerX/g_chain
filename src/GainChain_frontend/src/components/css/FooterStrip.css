@@ -1,0 +1,92 @@
+.footer-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4a4a4a; /* Replace with the correct color */
+  padding: 10px 15px; /* Reduce the padding to decrease the height */
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  font-family: 'Georgia', serif;
+}
+
+/* Left section: Navigation Links */
+.footer-strip-left {
+  display: flex;
+  align-items: center;
+  margin-left: 50px; /* Reduce left margin */
+  flex: 1; /* Make the left section take up available space */
+}
+
+/* Right section: Social Media Icons */
+.footer-strip-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Keep the text on the right */
+  flex: 1; /* Make the right section take up available space */
+  white-space: nowrap; /* Ensure "Urban Renewed Limited" stays on one line */
+  margin-left: 70vw;
+}
+
+/* Styling for social media icons */
+.footer-icon {
+  color: white;
+  font-size: 18px; /* Slightly smaller icons to fit better */
+  margin-left: 15px; /* Add space between icons */
+  transition: color 0.3s ease;
+}
+
+.footer-icon:hover {
+  color: #E68369; /* Highlight color on hover */
+}
+
+/* Styling for navigation links */
+.footer-strip-left a {
+  color: #ffffff;
+  margin-right: 15px; /* Adjust spacing between links */
+  text-decoration: none;
+  font-size: 16px; /* Reduce font size */
+}
+
+.footer-strip-left a:hover {
+  color: #E68369; /* Link hover color */
+  text-decoration: none;
+}
+
+.footer-strip-right a {
+  color: #ffffff;
+  margin-right: 0; /* No margin required */
+  text-decoration: none;
+  font-size: 16px; /* Reduce font size */
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .footer-strip {
+    flex-direction: row; /* Keep the sections in a row */
+    justify-content: space-between; /* Keep sections aligned to left and right */
+    align-items: center;
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .footer-strip-left,
+  .footer-strip-right {
+    flex: 1;
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: flex-start; /* Align left section content to start */
+  }
+
+  .footer-strip-right {
+    justify-content: flex-end; /* Align right section content to the right */
+    margin-left: 10vw;
+  }
+
+  .footer-strip-left a,
+  .footer-strip-right a {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+
+  .footer-icon {
+    font-size: 16px; /* Adjust icon size for mobile */
+    margin-left: 10px; /* Reduce spacing between icons */
+  }
+}
