@@ -1,9 +1,9 @@
 {
   "canisters": {
     "GainChain_backend": {
-      "candid": "src/GainChain_backend/GainChain_backend.did",  
-      "package": "gain_chain_backend",  
-      "type": "rust"
+    "candid": "src/GainChain_backend/GainChain_backend.did",
+    "package": "gain_chain_backend",
+    "type": "rust"
     },
     "GainChain_frontend": {
       "dependencies": [

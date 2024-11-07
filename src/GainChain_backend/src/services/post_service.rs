@@ -12,6 +12,9 @@ use candid::Principal;  // Import the Principal type from the Candid library
 use std::collections::HashMap;  // Import the HashMap struct from the standard library
 use std::cell::RefCell;  // Import the RefCell struct from the standard library, which is used to create a thread-local hashmap.
 
+
+
+
 thread_local! {
     static POSTS: RefCell<HashMap<u64, Post>> = RefCell::new(HashMap::new());
 }

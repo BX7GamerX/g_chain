@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Wallet {
     /// The wallet's balance in ICP.
-    pub balance: Nat,  // Using Nat to store balance
+    balance: Nat,  // Using Nat to store balance
 }
 impl Wallet {
     /// Creates a new wallet with a zero balance.

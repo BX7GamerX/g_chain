@@ -3,17 +3,14 @@ use candid::{CandidType, Principal, Nat};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use ic_cdk::caller;
-use ic_cdk_macros::{init, query, update};
+use ic_cdk_macros::{query, update, init};
+
 mod models;
 mod services;
 
-use services::wallet::{get_balance, earn_coins, send_coins};
-use crate::services::user_service::{
-    create_user as user_create, get_user as user_get, follow_user as user_follow,
-};
-use crate::services::post_service::{
-    create_post as post_create, get_post as post_get, like_post as post_like,
-};
+use crate::services::wallet::{earn_coins, get_balance, send_coins}; // Add wallet imports
+use crate::services::user_service::create_user as user_create;
+use crate::services::post_service::{create_post as post_create, like_post as post_like};
 use crate::services::recommendation_service::NeuralNetwork;
 
 #[derive(Clone, Debug, CandidType, Serialize, Deserialize)]
@@ -37,25 +34,35 @@ thread_local! {
     static RECOMMENDER: std::cell::RefCell<Option<NeuralNetwork>> = std::cell::RefCell::new(None);
 }
 
-/// Initializes the canister and sets up the recommendation network
+/// Initialization function to set up the recommender network
+//use ic_cdk_macros::init;
+
 #[init]
-fn canister_init() {
-    let network = NeuralNetwork::new(3, 4, 2, 0.01); // Adjust size based on your model's needs
-    RECOMMENDER.with(|recommender| *recommender.borrow_mut() = Some(network));
+fn init_canister() {
+    // Initialize the recommender neural network with chosen parameters.
+    initialize_recommender(3, 4, 2, 0.01); // Adjust these parameters if needed
 }
 
-/// Query the user's current wallet balance
-#[query]
-fn query_balance() -> Nat {
-    get_balance()
-}
 
-/// Add coins to the user's wallet (e.g., from likes)
+
 #[update]
-fn add_coins(amount: Nat) -> Nat {
-    earn_coins(amount)
+pub fn create_contract(id: u64, name: String, data: Vec<u8>) -> String {
+    let owner = caller();
+    let contract = Contract::new(id, name, owner, data);
+
+    CONTRACTS.with(|contracts| {
+        contracts.borrow_mut().insert(id, contract);
+    });
+
+    format!("Contract with id {} created successfully.", id)
 }
 
+#[query]
+pub fn get_contract(id: u64) -> Option<Contract> {
+    CONTRACTS.with(|contracts| contracts.borrow().get(&id).cloned())
+}
+
+#[update]
 pub fn create_user(username: String, bio: Option<String>) -> String {
     let user_id = caller();
     let user = user_create(username, bio);
@@ -67,11 +74,13 @@ pub fn create_user(username: String, bio: Option<String>) -> String {
     format!("User {} created successfully.", user_id)
 }
 
+#[query]
 pub fn get_user() -> Option<models::user::User> {
     let user_id = caller();
     USERS.with(|users| users.borrow().get(&user_id).cloned())
 }
 
+#[update]
 pub fn create_post(content: String, media_url: Option<String>) -> String {
     let user_id = caller();
     let post = post_create(content, media_url);
@@ -84,11 +93,33 @@ pub fn create_post(content: String, media_url: Option<String>) -> String {
     format!("Post {} created successfully by user {}.", post_id, user_id)
 }
 
+#[update]
 pub fn like_post(id: u64) -> String {
     post_like(id)
 }
 
-/// Generates recommendations based on user data
+#[update]
+pub fn add_coins(amount: Nat) -> Nat {
+    earn_coins(amount)
+}
+
+#[query]
+pub fn query_balance() -> Nat {
+    get_balance()
+}
+
+#[update]
+pub fn transfer_coins(recipient: Principal, amount: Nat) -> Result<String, String> {
+    send_coins(caller(), recipient, amount)
+}
+
+/// Helper function to initialize the recommender neural network.
+fn initialize_recommender(input_size: usize, hidden_size: usize, output_size: usize, learning_rate: f64) {
+    let network = NeuralNetwork::new(input_size, hidden_size, output_size, learning_rate);
+    RECOMMENDER.with(|recommender| *recommender.borrow_mut() = Some(network));
+}
+
+
 pub fn generate_recommendation(user_data: serde_json::Value) -> String {
     let recommendation_result = RECOMMENDER.with(|recommender| {
         if let Some(network) = &*recommender.borrow() {
@@ -108,12 +139,9 @@ pub fn greet(name: String) -> String {
     );
     let user_data = json!([0.5, 0.8, 0.3]); // Example data for recommendation
     let recommendations = generate_recommendation(user_data);
-    let _ = transfer_coins(Principal::from_text("aaaaa-aa").unwrap(), Nat::from(100u64));
-    format!("Hello, {}! Post creation result: {}\nRecommendations: {}", name, post_result, recommendations)
-}
 
-/// Transfer coins to another user
-#[update]
-fn transfer_coins(recipient: Principal, amount: Nat) -> Result<String, String> {
-    send_coins(caller(), recipient, amount)
+    format!(
+        "Hello, {}! Post creation result: {}\nRecommendations: {}",
+        name, post_result, recommendations
+    )
 }
