@@ -1,17 +1,8 @@
-type Contract = record {
-    id: nat64;
-    name: text;
-    owner: principal;
-    data: vec nat8;
-};
+
 
 service : {
     "greet": (text) -> (text) query;
-    "create_contract": (nat64, text, vec nat8) -> (text);
-    "get_contract": (nat64) -> (opt Contract) query;
-    "query_balance": () -> (nat) query;
-    "add_coins": (nat) -> (nat);
-    "transfer_coins": (principal, nat) -> (text) query;
+    
 
 }
 
