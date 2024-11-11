@@ -1,6 +1,7 @@
-// src/controllers/neural_net_controller.rs
-use crate::services::neural_net_service;
+// src/GainChain_backend/controllers/neural_net_controller.rs
+use crate::services::neural_net_service::recommend_posts;
+use crate::models::project_model::Project;
 
-pub fn run_neural_network(data: Vec<f64>) -> Vec<f64> {
-    neural_net_service::process_data(data)
+pub fn get_post_recommendations(user_id: &str) -> Vec<Project> {
+    recommend_posts(user_id)
 }

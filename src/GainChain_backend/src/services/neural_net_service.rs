@@ -1,5 +1,7 @@
-// src/services/neural_net_service.rs
-pub fn process_data(data: Vec<f64>) -> Vec<f64> {
-    // Placeholder for neural network processing
-    data.iter().map(|x| x * 2.0).collect()
+// src/GainChain_backend/services/neural_net_service.rs
+use crate::models::project_model::Project;
+
+pub fn recommend_posts(_user_id: &str) -> Vec<Project> {
+    // Placeholder - call neural network here and return recommended posts
+    vec![]
 }

@@ -1,7 +1,11 @@
-// src/controllers/project_controller.rs
+// src/GainChain_backend/controllers/project_controller.rs
+use crate::services::project_service::{create_project, get_projects};
 use crate::models::project_model::Project;
-use crate::services::project_service;
 
-pub fn create_project(name: &str, description: &str) -> Result<Project, String> {
-    project_service::create_new_project(name, description)
+pub fn create_new_project(user_id: &str, name: &str, description: &str) -> Project {
+    create_project(user_id, name, description)
+}
+
+pub fn list_projects(user_id: &str) -> Vec<Project> {
+    get_projects(user_id)
 }
