@@ -1,12 +1,16 @@
-src/
-├── lib.rs                   # Main entry point for the backend
-├── models/                  # Directory to store data models
-│   ├── mod.rs               # Main file for importing models
-│   ├── user.rs              # User model and related functions
-│   ├── post.rs              # Post model and related functions
-│   └── comment.rs           # Comment model and related functions
-└── services/                # Directory to store business logic and CRUD operations
-    ├── mod.rs               # Main file for importing services
-    ├── user_service.rs      # CRUD operations and interactions for users
-    ├── post_service.rs      # CRUD operations and interactions for posts
-    └── interaction_service.rs # Functions for likes and follows
+gain_chain_backend/
+├── src/
+│   ├── controllers/               # Controllers for each core module (auth, recommendation, etc.)
+│   │   ├── auth_controller.rs     # Handles Internet Identity login
+│   │   ├── recommendation_controller.rs # For recommendations
+│   │   ├── project_controller.rs  # For project storage
+│   ├── services/                  # Core business logic (e.g., neural network, user services)
+│   │   ├── neural_net_service.rs  # Recommendation service
+│   ├── models/                    # Defines data structures (e.g., user, project)
+│   │   ├── user_model.rs          # User-related models
+│   │   ├── project_model.rs       # Project-related models
+│   ├── utils/                     # Helper functions (e.g., canister utils)
+│   │   ├── canister_utils.rs      # Canister utility functions
+│   ├── lib.rs                     # Entry point (server setup, routes)
+├── Cargo.toml
+└── gain_chain_backend.did         # Candid interface for ICP
