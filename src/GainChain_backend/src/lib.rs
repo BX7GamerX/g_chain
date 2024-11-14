@@ -1,9 +1,8 @@
+
 use ic_cdk_macros::query;
+
+/// Example query function that greets the user and provides recommendations
 #[query]
 pub fn greet(name: String) -> String {
-    //let user_data = json!([0.5, 0.8, 0.3]); // Example data for recommendation
-
-
-    format!("Hello, {}", name)
+    format!("Hello, {}!", name, )
 }
-

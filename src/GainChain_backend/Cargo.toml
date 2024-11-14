@@ -5,6 +5,8 @@ edition = "2021"
 
 [lib]
 crate-type = ["cdylib"]
+
+
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
@@ -15,5 +17,3 @@ ndarray = "0.16.1"
 bcrypt = "0.15"  # Use bcrypt 0.15.x (latest available)
 getrandom = { version = "0.2.15", features = ["js"] }  # Use getrandom 0.2.15
 ic-cdk-macros = "0.16"
-
-
