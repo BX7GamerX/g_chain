@@ -1,8 +1,5 @@
-
-
 service : {
     "greet": (text) -> (text) query;
-    
-
+    "get_recommendations": (text) -> (text) query;
+    "get_project_support": (text) -> (text) query;
 }
-

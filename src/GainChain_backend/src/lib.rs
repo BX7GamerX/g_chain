@@ -1,51 +1,38 @@
-/*// src/lib.rs
+// src/lib.rs
 
-pub mod controllers;
-pub mod models;
+// Declare the services module at the crate root
 pub mod services;
-pub mod utils;
 
-use hyper::{Body, Request, Response, Server};
-use hyper::service::{make_service_fn, service_fn};
-use async_std::task;
-use crate::controllers::auth_controller::auth_routes;
-use crate::controllers::recommendation_controller::recommendation_routes;
-use serde_json::json;
+use ic_cdk_macros::query;
+use serde_json::{Value, from_str, to_string};
+use crate::services::neural_net_service::NeuralNetwork;
 
-// Define a basic handler for the root route
-async fn handle_request(_req: Request<Body>) -> Result<Response<Body>, Infallible> {
-    Ok(Response::new(Body::from("Welcome to GainChain Backend!")))
+/// Example query function that greets the user.
+#[query]
+pub fn greet(name: String) -> String {
+    format!("Hello, {}!", name)
 }
 
-// Start the server with routes
-#[async_std::main]
-async fn main() {
-    let make_svc = make_service_fn(|_conn| async {
-        Ok::<_, Infallible>(service_fn(handle_request))
-    });
-
-    let addr = ([127, 0, 0, 1], 3000).into();
-    let server = Server::bind(&addr).serve(make_svc);
-
-    println!("Server running on http://{}", addr);
-
-    if let Err(e) = server.await {
-        eprintln!("server error: {}", e);
-    }
+/// Generates recommendations using the neural network.
+#[query]
+pub fn get_recommendations(user_data: String) -> String {
+    let user_data: Value = from_str(&user_data).expect("Invalid JSON format");
+    let neural_net = NeuralNetwork::new(10, 64, 5, 0.01);
+    let recommendations = neural_net.generate_recommendations(&user_data);
+    to_string(&recommendations).expect("Failed to serialize recommendations")
 }
 
-pub fn create_app() -> Router {
-    Router::new()
-        .merge(auth_routes())      // Auth routes (login, registration)
-        .merge(recommendation_routes()) // Recommendation routes (e.g., greet, recommendations)
-        .route("/", handle_request)  // Root route
+/// Provides user project support backend configurations.
+#[query]
+pub fn get_project_support(user_data: String) -> String {
+    let user_data: Value = from_str(&user_data).expect("Invalid JSON format");
+    let neural_net = NeuralNetwork::new(10, 64, 5, 0.01);
+    let project_support = neural_net.generate_user_project_support(&user_data);
+    to_string(&project_support).expect("Failed to serialize project support")
 }
 
 
-
-
-*/
-
+/*
 use ic_cdk_macros::query;
 
 /// Example query function that greets the user and provides recommendations
@@ -53,3 +40,4 @@ use ic_cdk_macros::query;
 pub fn greet(name: String) -> String {
     format!("Hello, {}!", name, )
 }
+*/
