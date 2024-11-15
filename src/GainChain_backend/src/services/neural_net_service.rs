@@ -21,7 +21,13 @@ impl NeuralNetwork {
         let pseudo_random = nanos.wrapping_add(seed);
         (pseudo_random % 1000) as f64 / 1000.0
     }
-
+    /// Saves weights to a JSON structure for persistence
+    pub fn save_weights(&self) -> Value {
+        json!({
+            "weights_input_hidden": self.weights_input_hidden,
+            "weights_hidden_output": self.weights_hidden_output,
+        })
+    }
     /// Initializes the neural network with IC-specific pseudo-random weights
     pub fn new(input_size: usize, hidden_size: usize, output_size: usize, learning_rate: f64) -> Self {
         let mut weights_input_hidden = vec![vec![0.0; hidden_size]; input_size];
@@ -87,7 +93,19 @@ impl NeuralNetwork {
         let sum: f64 = exp_values.iter().sum();
         exp_values.iter().map(|&x| x / sum).collect()
     }
-
+    /// Loads weights from a JSON structure
+    pub fn load_weights(&mut self, data: &Value) {
+        if let Some(input_hidden) = data.get("weights_input_hidden").and_then(|v| v.as_array()) {
+            self.weights_input_hidden = input_hidden.iter()
+                .map(|row| row.as_array().unwrap().iter().map(|v| v.as_f64().unwrap()).collect())
+                .collect();
+        }
+        if let Some(hidden_output) = data.get("weights_hidden_output").and_then(|v| v.as_array()) {
+            self.weights_hidden_output = hidden_output.iter()
+                .map(|row| row.as_array().unwrap().iter().map(|v| v.as_f64().unwrap()).collect())
+                .collect();
+        }
+    }
     /// Generates recommendations based on user data in JSON format
     pub fn generate_recommendations(&self, user_data: &Value) -> Value {
         let input_data: Vec<f64> = user_data.as_array()
@@ -122,5 +140,18 @@ impl NeuralNetwork {
             .collect::<Vec<_>>();
 
         json!({ "project_support": project_support })
+    }
+    /// Resets weights to new pseudo-random values
+    pub fn reset_weights(&mut self) {
+        for i in 0..self.input_size {
+            for j in 0..self.hidden_size {
+                self.weights_input_hidden[i][j] = Self::ic_random_f64((i * self.hidden_size + j) as u64);
+            }
+        }
+        for j in 0..self.hidden_size {
+            for k in 0..self.output_size {
+                self.weights_hidden_output[j][k] = Self::ic_random_f64((j * self.output_size + k) as u64);
+            }
+        }
     }
 }

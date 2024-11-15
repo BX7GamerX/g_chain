@@ -1,13 +1,26 @@
 // src/lib.rs
-
+/*
 // Declare the services module at the crate root
 pub mod services;
 
 use ic_cdk_macros::query;
 use serde_json::{Value, from_str, to_string};
 use crate::services::neural_net_service::NeuralNetwork;
-
+*/
 /// Example query function that greets the user.
+/// 
+pub mod controllers;
+
+use ic_cdk_macros::query;
+use controllers::project_controller::{create_project, list_user_projects, delete_project};
+
+use crate::services::neural_net_service::NeuralNetwork;
+pub mod services;
+
+
+use serde_json::{Value, from_str, to_string};
+
+
 #[query]
 pub fn greet(name: String) -> String {
     format!("Hello, {}!", name)
@@ -16,10 +29,14 @@ pub fn greet(name: String) -> String {
 /// Generates recommendations using the neural network.
 #[query]
 pub fn get_recommendations(user_data: String) -> String {
-    let user_data: Value = from_str(&user_data).expect("Invalid JSON format");
-    let neural_net = NeuralNetwork::new(10, 64, 5, 0.01);
-    let recommendations = neural_net.generate_recommendations(&user_data);
-    to_string(&recommendations).expect("Failed to serialize recommendations")
+    match from_str::<Value>(&user_data) {
+        Ok(user_data) => {
+            let neural_net = NeuralNetwork::new(10, 64, 5, 0.01);
+            let recommendations = neural_net.generate_recommendations(&user_data);
+            to_string(&recommendations).unwrap_or_else(|_| "Failed to serialize recommendations".to_string())
+        }
+        Err(_) => "Invalid JSON format".to_string(),
+    }
 }
 
 /// Provides user project support backend configurations.

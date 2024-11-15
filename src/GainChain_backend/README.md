@@ -22,3 +22,9 @@ Set up the following variables in a `.env` file:
 
 ```bash
 cargo run
+
+
+cargo clean
+cargo update
+cargo build
+dfx deploy
