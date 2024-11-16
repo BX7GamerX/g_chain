@@ -1,26 +1,14 @@
-// src/lib.rs
-/*
-// Declare the services module at the crate root
-pub mod services;
-
-use ic_cdk_macros::query;
-use serde_json::{Value, from_str, to_string};
-use crate::services::neural_net_service::NeuralNetwork;
-*/
-/// Example query function that greets the user.
-/// 
 pub mod controllers;
+pub mod services;
+pub mod models;
 
 use ic_cdk_macros::query;
 use controllers::project_controller::{create_project, list_user_projects, delete_project};
-
 use crate::services::neural_net_service::NeuralNetwork;
-pub mod services;
-
 
 use serde_json::{Value, from_str, to_string};
 
-
+/// Example query function.
 #[query]
 pub fn greet(name: String) -> String {
     format!("Hello, {}!", name)
@@ -39,7 +27,7 @@ pub fn get_recommendations(user_data: String) -> String {
     }
 }
 
-/// Provides user project support backend configurations.
+/// Provides backend support for user projects.
 #[query]
 pub fn get_project_support(user_data: String) -> String {
     let user_data: Value = from_str(&user_data).expect("Invalid JSON format");
@@ -47,14 +35,3 @@ pub fn get_project_support(user_data: String) -> String {
     let project_support = neural_net.generate_user_project_support(&user_data);
     to_string(&project_support).expect("Failed to serialize project support")
 }
-
-
-/*
-use ic_cdk_macros::query;
-
-/// Example query function that greets the user and provides recommendations
-#[query]
-pub fn greet(name: String) -> String {
-    format!("Hello, {}!", name, )
-}
-*/

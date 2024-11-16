@@ -1,5 +1,3 @@
-// src/services/neural_net_service.rs
-
 use serde_json::{json, Value};
 use std::f64::consts::E;
 use ic_cdk::api::time;
@@ -15,32 +13,22 @@ pub struct NeuralNetwork {
 }
 
 impl NeuralNetwork {
-    /// Generates a pseudo-random number based on the current timestamp
     fn ic_random_f64(seed: u64) -> f64 {
         let nanos = time();
         let pseudo_random = nanos.wrapping_add(seed);
         (pseudo_random % 1000) as f64 / 1000.0
     }
-    /// Saves weights to a JSON structure for persistence
-    pub fn save_weights(&self) -> Value {
-        json!({
-            "weights_input_hidden": self.weights_input_hidden,
-            "weights_hidden_output": self.weights_hidden_output,
-        })
-    }
-    /// Initializes the neural network with IC-specific pseudo-random weights
+
     pub fn new(input_size: usize, hidden_size: usize, output_size: usize, learning_rate: f64) -> Self {
         let mut weights_input_hidden = vec![vec![0.0; hidden_size]; input_size];
         let mut weights_hidden_output = vec![vec![0.0; output_size]; hidden_size];
 
-        // Populate weights_input_hidden with pseudo-random values
         for i in 0..input_size {
             for j in 0..hidden_size {
                 weights_input_hidden[i][j] = Self::ic_random_f64((i * hidden_size + j) as u64);
             }
         }
 
-        // Populate weights_hidden_output with pseudo-random values
         for j in 0..hidden_size {
             for k in 0..output_size {
                 weights_hidden_output[j][k] = Self::ic_random_f64((j * output_size + k) as u64);
@@ -57,8 +45,24 @@ impl NeuralNetwork {
         }
     }
 
-    /// Forward pass to compute output with softmax activation
-    pub fn forward(&self, input_data: &[f64]) -> Vec<f64> {
+    pub fn generate_recommendations(&self, user_data: &Value) -> Value {
+        let input_data: Vec<f64> = user_data.as_array()
+            .expect("User data should be an array of numbers")
+            .iter()
+            .map(|v| v.as_f64().expect("Expected a floating-point number"))
+            .collect();
+
+        let output = self.forward(&input_data);
+
+        let recommendations = output.iter()
+            .enumerate()
+            .map(|(i, &score)| json!({ "item_id": i, "score": score }))
+            .collect::<Vec<_>>();
+
+        json!({ "recommendations": recommendations })
+    }
+
+    fn forward(&self, input_data: &[f64]) -> Vec<f64> {
         let hidden_layer: Vec<f64> = (0..self.hidden_size)
             .map(|j| {
                 let sum: f64 = self.weights_input_hidden.iter()
@@ -82,48 +86,15 @@ impl NeuralNetwork {
         Self::softmax(&output_layer)
     }
 
-    /// ReLU activation function
     fn relu(x: f64) -> f64 {
         x.max(0.0)
     }
 
-    /// Softmax activation function for output layer
     fn softmax(input: &[f64]) -> Vec<f64> {
         let exp_values: Vec<f64> = input.iter().map(|&x| E.powf(x)).collect();
         let sum: f64 = exp_values.iter().sum();
         exp_values.iter().map(|&x| x / sum).collect()
     }
-    /// Loads weights from a JSON structure
-    pub fn load_weights(&mut self, data: &Value) {
-        if let Some(input_hidden) = data.get("weights_input_hidden").and_then(|v| v.as_array()) {
-            self.weights_input_hidden = input_hidden.iter()
-                .map(|row| row.as_array().unwrap().iter().map(|v| v.as_f64().unwrap()).collect())
-                .collect();
-        }
-        if let Some(hidden_output) = data.get("weights_hidden_output").and_then(|v| v.as_array()) {
-            self.weights_hidden_output = hidden_output.iter()
-                .map(|row| row.as_array().unwrap().iter().map(|v| v.as_f64().unwrap()).collect())
-                .collect();
-        }
-    }
-    /// Generates recommendations based on user data in JSON format
-    pub fn generate_recommendations(&self, user_data: &Value) -> Value {
-        let input_data: Vec<f64> = user_data.as_array()
-            .expect("User data should be an array of numbers")
-            .iter()
-            .map(|v| v.as_f64().expect("Expected a floating-point number"))
-            .collect();
-
-        let output = self.forward(&input_data);
-
-        let recommendations = output.iter()
-            .enumerate()
-            .map(|(i, &score)| json!({ "item_id": i, "score": score }))
-            .collect::<Vec<_>>();
-
-        json!({ "recommendations": recommendations })
-    }
-
     /// Generates backend support for user projects, creating configurations as JSON
     pub fn generate_user_project_support(&self, user_data: &Value) -> Value {
         let input_data: Vec<f64> = user_data.as_array()
@@ -131,27 +102,15 @@ impl NeuralNetwork {
             .iter()
             .map(|v| v.as_f64().expect("Expected a floating-point number"))
             .collect();
-
+    
         let output = self.forward(&input_data);
-
+    
         let project_support = output.iter()
             .enumerate()
             .map(|(i, &score)| json!({ "config_id": i, "config_score": score }))
             .collect::<Vec<_>>();
-
+    
         json!({ "project_support": project_support })
     }
-    /// Resets weights to new pseudo-random values
-    pub fn reset_weights(&mut self) {
-        for i in 0..self.input_size {
-            for j in 0..self.hidden_size {
-                self.weights_input_hidden[i][j] = Self::ic_random_f64((i * self.hidden_size + j) as u64);
-            }
-        }
-        for j in 0..self.hidden_size {
-            for k in 0..self.output_size {
-                self.weights_hidden_output[j][k] = Self::ic_random_f64((j * self.output_size + k) as u64);
-            }
-        }
-    }
+    
 }

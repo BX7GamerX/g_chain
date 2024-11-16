@@ -25,3 +25,12 @@ pub fn logout() -> String {
     response.to_string()
 }
 
+pub fn authenticate_user(principal_id: String) -> String {
+    // In production, verify principal_id with Internet Identity
+    let response = json!({
+        "status": "success",
+        "message": "User authenticated",
+        "principal_id": principal_id,
+    });
+    serde_json::to_string(&response).expect("Failed to serialize authentication response")
+}
