@@ -1,6 +1,6 @@
 service : {
     "create_user": (text, text, text) -> (text);
-    "get_user": (text) -> (text) query;
+    "get_all_users": () -> (vec record { id: text; username: text; email: text }) query;
     "create_project": (text, text, text) -> (text);
     "list_user_projects": (text) -> (text) query;
     "delete_project": (text) -> (text);
