@@ -2,6 +2,7 @@
 use candid::{CandidType, Decode, Encode};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use serde_json::json;
 use std::cell::RefCell;
 
 fn generate_unique_id() -> String {
@@ -105,5 +106,33 @@ pub fn delete_project(project_id: String) -> String {
         } else {
             format!("Project {} not found", project_id)
         }
+    })
+}
+#[ic_cdk_macros::query]
+pub fn suggest_project_improvements(project_id: String) -> String {
+    PROJECTS.with(|projects| {
+        let projects = projects.borrow();
+        match projects.projects.values().find(|project| project.id == project_id) {
+            Some(project) => {
+                let project_data = json!({
+                    "name": project.name,
+                    "description": project.description
+                });
+                let recommendations = recommend_features(&project_data);
+                serde_json::to_string(&recommendations).expect("Failed to serialize recommendations")
+            }
+            None => format!("Project {} not found", project_id),
+        }
+    })
+}
+
+/// Recommend features for a project
+fn recommend_features(project_data: &serde_json::Value) -> serde_json::Value {
+    // Dummy implementation for recommendations
+    json!({
+        "recommendations": [
+            "Add more details to the project description",
+            "Consider adding a timeline for the project"
+        ]
     })
 }

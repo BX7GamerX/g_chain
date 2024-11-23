@@ -15,18 +15,7 @@ pub fn get_all_users() -> Vec<User> {
     USERS.with(|users| users.borrow().clone())
 }
 
-/*
-thread_local! {
-    static USERS: RefCell<Users> = RefCell::new(Vec::new());
-}
-pub fn get_users_mut() -> RefMut<'static, Users> {
-    USERS.with(|users| users.borrow_mut())
-}*/
-/*
-pub fn get_users_mut() -> RefMut<'static, Users> {
-    USERS.with(|users| users.borrow_mut())
-}
-*/
+
 /// Create a new user
 #[ic_cdk_macros::update]
 pub fn create_user(name: String, email: String) -> String {

@@ -18,3 +18,4 @@ getrandom = { version = "0.2.15", features = ["js"] }
 nalgebra = "0.30"
 chrono = "0.4"
 uuid = { version = "0.8", features = ["v4"] }
+serde_derive = "1.0"
