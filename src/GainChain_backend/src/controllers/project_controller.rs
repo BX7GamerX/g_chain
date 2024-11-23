@@ -4,12 +4,12 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use serde_json::json;
 use std::cell::RefCell;
-
+use crate::models::project_model::Project;
 fn generate_unique_id() -> String {
     let timestamp = ic_cdk::api::time(); // Nanoseconds since Unix epoch
     format!("project-{}", timestamp)
 }
-
+/*
 #[derive(Serialize, Deserialize, Clone, CandidType, Debug, Default)]
 pub struct Project {
     pub id: String,
@@ -17,6 +17,7 @@ pub struct Project {
     pub name: String,
     pub description: String,
 }
+*/
 
 #[derive(Serialize, Deserialize, Clone, CandidType, Debug, Default)]
 pub struct Projects {
@@ -68,6 +69,7 @@ pub fn create_project(user_id: String, name: String, description: String) -> Str
         user_id,
         name,
         description,
+        created_at: ic_cdk::api::time().to_string(),
     };
 
     PROJECTS.with(|projects| {

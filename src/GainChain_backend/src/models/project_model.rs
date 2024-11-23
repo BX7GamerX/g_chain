@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use candid::{CandidType, Decode, Encode};
 
-#[derive(Serialize, Deserialize, CandidType, Clone, Debug)]
+#[derive(Serialize, Deserialize, CandidType, Clone, Debug, Default)]
 pub struct Project {
     pub id: String,
     pub user_id: String,
