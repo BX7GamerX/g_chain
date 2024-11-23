@@ -1,6 +1,7 @@
 //src/GainChain_backend/src/models/user_model.rs
 use serde::{Serialize, Deserialize};
 use candid::{CandidType, Decode, Encode};
+use std::sync::RwLock;
 
 #[derive(Serialize, Deserialize, CandidType, Clone, Debug)]
 pub struct User {
@@ -22,3 +23,13 @@ impl User {
     }
 }
 
+type Users = Vec<User>;
+//use std::cell::RefCell;
+pub static USERS: RwLock<Vec<User>> = RwLock::new(Vec::new());
+/*thread_local! {
+    pub static USERS: RefCell<Vec<User>> = RefCell::new(Vec::new());
+}*/
+//#[ic_cdk_macros::query]
+pub fn get_all_users() -> Vec<User> {
+    USERS.read().unwrap().clone()
+}

@@ -3,7 +3,7 @@ use candid::{CandidType, Decode, Encode};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use serde_json::json;
-use std::cell::RefCell;
+use std::sync::RwLock;
 use crate::models::project_model::Project;
 fn generate_unique_id() -> String {
     let timestamp = ic_cdk::api::time(); // Nanoseconds since Unix epoch
@@ -24,22 +24,24 @@ pub struct Projects {
     pub projects: HashMap<String, Project>,
 }
 
-thread_local! {
-    static PROJECTS: RefCell<Projects> = RefCell::new(Projects::default());
-}
+
+use std::sync::LazyLock;
+
+pub static PROJECTS: LazyLock<RwLock<Projects>> = LazyLock::new(|| RwLock::new(Projects::default()));
+
 
 /// Save data to stable memory
 fn save_to_stable_memory() {
-    PROJECTS.with(|projects| {
-        let encoded = Encode!(&*projects.borrow()).expect("Failed to encode projects");
+    let projects = PROJECTS.read().expect("Failed to acquire read lock");
+    let encoded = Encode!(&*projects).expect("Failed to encode projects");
         let current_size = ic_cdk::api::stable::stable_size() * 65536;
         if encoded.len() > current_size as usize {
             let additional_pages = ((encoded.len() as u64 - current_size + 65535) / 65536) as u64;
             ic_cdk::api::stable::stable_grow(additional_pages).expect("Failed to grow stable memory");
         }
         ic_cdk::api::stable::stable_write(0, &encoded);
-    });
-}
+    }
+
 
 /// Load data from stable memory
 fn load_from_stable_memory() {
@@ -50,7 +52,8 @@ fn load_from_stable_memory() {
     let mut buffer = vec![0; memory_size as usize];
     ic_cdk::api::stable::stable_read(0, &mut buffer);
     if let Ok(decoded) = Decode!(&buffer, Projects) {
-        PROJECTS.with(|projects| *projects.borrow_mut() = decoded);
+        let mut projects = PROJECTS.write().expect("Failed to acquire write lock");
+        *projects = decoded;
     }
 }
 
@@ -71,61 +74,53 @@ pub fn create_project(user_id: String, name: String, description: String) -> Str
         description,
         created_at: ic_cdk::api::time().to_string(),
     };
-
-    PROJECTS.with(|projects| {
-        projects.borrow_mut().projects.insert(project_id.clone(), new_project);
-    });
-
+    let mut projects = PROJECTS.write().expect("Failed to acquire write lock");
+    projects.projects.insert(project_id.clone(), new_project);
     save_to_stable_memory();
 
     format!("Project {} created successfully", project_id)
-}
+    }
+
 
 /// List all projects for a user
 #[ic_cdk_macros::query]
 pub fn list_user_projects(user_id: String) -> String {
-    PROJECTS.with(|projects| {
-        let user_projects: Vec<_> = projects
-            .borrow()
-            .projects
-            .values()
-            .filter(|p| p.user_id == user_id)
-            .cloned()
-            .collect();
+    let projects = PROJECTS.read().expect("Failed to acquire read lock");
+    let user_projects: Vec<_> = projects
+        .projects
+        .values()
+        .filter(|p| p.user_id == user_id)
+        .cloned()
+        .collect();
 
         serde_json::to_string(&user_projects).expect("Failed to serialize projects")
-    })
-}
+    }
 
 /// Delete a project
 #[ic_cdk_macros::update]
 pub fn delete_project(project_id: String) -> String {
-    PROJECTS.with(|projects| {
-        let mut projects = projects.borrow_mut();
-        if projects.projects.remove(&project_id).is_some() {
-            save_to_stable_memory();
+    let mut projects = PROJECTS.write().expect("Failed to acquire write lock");
+    let mut projects = PROJECTS.write().expect("Failed to acquire write lock");
+    if projects.projects.remove(&project_id).is_some() {
             format!("Project {} deleted successfully", project_id)
         } else {
             format!("Project {} not found", project_id)
         }
-    })
-}
+    }
 #[ic_cdk_macros::query]
 pub fn suggest_project_improvements(project_id: String) -> String {
-    PROJECTS.with(|projects| {
-        let projects = projects.borrow();
-        match projects.projects.values().find(|project| project.id == project_id) {
-            Some(project) => {
-                let project_data = json!({
-                    "name": project.name,
-                    "description": project.description
-                });
-                let recommendations = recommend_features(&project_data);
-                serde_json::to_string(&recommendations).expect("Failed to serialize recommendations")
-            }
-            None => format!("Project {} not found", project_id),
+    let projects = PROJECTS.read().expect("Failed to acquire read lock");
+    match projects.projects.get(&project_id) {
+        Some(project) => {
+            let project_data = json!({
+                "name": project.name,
+                "description": project.description
+            });
+            let recommendations = recommend_features(&project_data);
+            serde_json::to_string(&recommendations).expect("Failed to serialize recommendations")
         }
-    })
+        None => format!("Project {} not found", project_id),
+    }
 }
 
 /// Recommend features for a project
@@ -138,3 +133,8 @@ fn recommend_features(project_data: &serde_json::Value) -> serde_json::Value {
         ]
     })
 }
+
+pub fn get_project(project_id: String) -> Option<Project> {
+    let projects = PROJECTS.read().expect("Failed to acquire read lock");
+    projects.projects.get(&project_id).cloned()
+}   

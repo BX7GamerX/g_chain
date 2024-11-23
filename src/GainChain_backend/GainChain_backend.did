@@ -7,4 +7,6 @@ service : {
     "greet": (text) -> (text) query;
     "get_recommendations": (text) -> (text) query;
     "get_project_support": (text) -> (text) query;
+    "new_user_start": (name: text, text) -> (text) query;
+    "new_project": (user_id: text, name: text, description: text) -> (text) query;
 }
