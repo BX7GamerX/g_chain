@@ -5,6 +5,8 @@ import TestimonialSlider from './Landing/Testimonials';
 import NewsSection from './Landing/NewsSection';
 import Hero from './Landing/Hero';
 import Header from './Landing/Header';
+import Contact from './Landing/contact';
+import Footer from './Landing/Footer';
 
 
 const Landing = () => {
@@ -15,7 +17,9 @@ const Landing = () => {
         <FeatureSection />
         <BlockchainAI />
         <TestimonialSlider />
+        <Contact />
         <NewsSection />
+        <Footer />
     </div>
   )
 }
