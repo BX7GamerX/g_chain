@@ -5,8 +5,8 @@ use crate::controllers::canvas_controller::initialize_canvas_storage;
 use crate::controllers::project_controller::{create_project, get_project};
 use crate::controllers::user_controller::{create_user,get_user_details};
 use crate::models::user_model::User;
-
-use super::neural_net_service::NeuralNetwork;
+use serde_json::{from_str, Value,to_string};
+use crate::services::neural_net_service::NeuralNetwork;
 /*#[init]
 fn init() {
     // Initialize the canvas storage
@@ -30,17 +30,19 @@ let test_floats: Vec<f32> = vec![
 ];
 
 // Call the get_recommendation function with the test data
-let recommendations_data = get_recommendation(test_floats);
-match from_str::<Value>(&recommendations_data) {
-    Ok(user_data) => {
-        let neural_net = NeuralNetwork::new(10, 64, 5, 0.01);
-        let recommendations = neural_net.generate_recommendations(&user_data);
-        to_string(&recommendations).unwrap_or_else(|_| "Failed to serialize recommendations".to_string())
-    }
-    Err(_) => "Invalid JSON format".to_string(),
-}    //create_project(user_id, name, description);
+
+    let recommendations = 
+    match from_str::<Value>(&serde_json::to_string(&test_floats).unwrap()) {
+        Ok(user_data) => {
+            let neural_net = NeuralNetwork::new(10, 64, 5, 0.01);
+            let recommendations = neural_net.generate_recommendations(&user_data);
+            to_string(&recommendations).unwrap_or_else(|_| "Failed to serialize recommendations".to_string())
+        }
+        Err(_) => "Invalid JSON format".to_string(),
+    };    //create_project(user_id, name, description);
+    
     format!("Hello, {}! Welcome to GainChain!\n{}, \n
-    The user id is {}", name.clone(),return_str_user,get_user_details("123".to_string()),)
+    The user id is {}\n{}", name.clone(), return_str_user, "123", recommendations)
 }
 /*
 // Function to initialize the neural network
