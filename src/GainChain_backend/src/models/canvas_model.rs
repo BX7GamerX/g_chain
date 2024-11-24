@@ -1,3 +1,4 @@
+//src/GainChain_backend/src/models/canvas_model.rs
 use serde::{Deserialize, Serialize};
 use candid::CandidType;
 

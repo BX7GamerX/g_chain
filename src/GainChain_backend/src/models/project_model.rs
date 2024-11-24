@@ -1,3 +1,4 @@
+//src/GainChain_backend/src/models/project_model.rs
 use serde::{Serialize, Deserialize};
 use candid::{CandidType, Decode, Encode};
 

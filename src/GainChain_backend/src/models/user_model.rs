@@ -2,6 +2,7 @@
 use serde::{Serialize, Deserialize};
 use candid::{CandidType, Decode, Encode};
 use std::sync::RwLock;
+use ic_cdk_macros::query;
 
 #[derive(Serialize, Deserialize, CandidType, Clone, Debug)]
 pub struct User {
@@ -30,6 +31,8 @@ pub static USERS: RwLock<Vec<User>> = RwLock::new(Vec::new());
     pub static USERS: RefCell<Vec<User>> = RefCell::new(Vec::new());
 }*/
 //#[ic_cdk_macros::query]
+#[query]
 pub fn get_all_users() -> Vec<User> {
-    USERS.read().unwrap().clone()
+    let storage = USERS.read().expect("Failed to acquire read lock");
+    storage.clone()
 }
