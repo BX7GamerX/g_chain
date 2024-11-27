@@ -40,7 +40,7 @@ export default function FeatureSection() {
         <div className="mx-auto max-w-2xl lg:text-center">
           {/* Add a header image here */}
           <img
-            src="../../images/GAIN CHAIN -logo.png" // Replace with the actual image path
+            src="src/images/GAIN CHAIN -logo.png" // Replace with the actual image path
             alt="Blockchain Illustration"
             className="mx-auto w-full max-w-md rounded-lg shadow-lg"
           />

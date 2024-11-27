@@ -2,7 +2,7 @@ import React from "react";
 
 const MyProjects = ({ projects }) => {
   return (
-    <div className="p-6 bg-white shadow-md rounded-md">
+    <div className="p-6 text-black bg-white shadow-md rounded-md">
       <h2 className="text-lg font-bold mb-4">My Projects</h2>
       <ul>
         {projects.map((project, index) => (

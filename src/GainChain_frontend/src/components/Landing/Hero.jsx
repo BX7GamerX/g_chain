@@ -20,14 +20,14 @@ export default function GainChainOverview() {
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#00A7E1] via-[#40E0D0] to-[#FF4500] opacity-20" /> {/* Gradient background */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+          src="src/images/login.jpg"
           alt="Gain Chain Background"
           className="h-full w-full object-cover opacity-10"
         />
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-5xl font-bold tracking-tight text-white sm:text-7xl">
+          <h2 className="text-5xl font-bold tracking-tight text-white sm:text-7xl justify-center">
             Join the Gain Chain AI Revolution
           </h2>
           <p className="mt-8 text-lg font-medium text-gray-300 sm:text-xl">

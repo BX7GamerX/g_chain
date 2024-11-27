@@ -1,11 +1,16 @@
 import React from "react";
 import { useGoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate(); // Hook for navigation
+
   // Handle Google Login
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: (tokenResponse) => {
       console.log("Google token:", tokenResponse);
+      // Navigate to profile page after successful login
+      navigate("/profile");
     },
     onError: () => {
       console.error("Google login failed");
@@ -16,6 +21,8 @@ const LoginPage = () => {
   const handleInternetIdentityLogin = () => {
     console.log("Internet Identity login triggered.");
     alert("Logged in with Internet Identity (mock data).");
+    // Navigate to profile page after successful login
+    navigate("/profile");
   };
 
   return (
@@ -36,11 +43,11 @@ const LoginPage = () => {
               onClick={handleGoogleLogin}
               className="w-full flex items-center justify-center py-3 px-4 text-white bg-teal-600 hover:bg-teal-700 rounded-md font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-teal-300 transform transition-transform hover:scale-105 duration-300"
             >
-              <img
+              {/* <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
                 alt="Google Logo"
                 className="w-6 h-6 mr-2"
-              />
+              /> */}
               Log in with Google
             </button>
 
@@ -49,11 +56,11 @@ const LoginPage = () => {
               onClick={handleInternetIdentityLogin}
               className="w-full flex items-center justify-center py-3 px-4 text-white bg-teal-500 hover:bg-teal-600 rounded-md font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-teal-300 transform transition-transform hover:scale-105 duration-300"
             >
-              <img
+              {/* <img
                 src="https://internetcomputer.org/assets/logos/icp-logo.svg"
                 alt="ICP Logo"
                 className="w-6 h-6 mr-2"
-              />
+              /> */}
               Log in with Internet Identity
             </button>
           </div>

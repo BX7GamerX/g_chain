@@ -27,7 +27,7 @@ export default function BlockchainAI() {
               <div className="relative min-h-[30rem] w-full grow">
                 <img
                   className="absolute inset-0 h-full w-full object-cover"
-                  src="https://your-image-link/ai-blockchain.png"
+                  src="src/images/aiimage.jpg"
                   alt="AI Blockchain"
                 />
               </div>
@@ -50,7 +50,7 @@ export default function BlockchainAI() {
               <div className="flex items-center justify-center px-8 py-10">
                 <img
                   className="w-full max-w-sm"
-                  src="https://your-image-link/security-blockchain.png"
+                  src="src/images/neuro.png"
                   alt="Decentralized Security"
                 />
               </div>
@@ -73,7 +73,7 @@ export default function BlockchainAI() {
               <div className="flex items-center justify-center py-10">
                 <img
                   className="h-40 w-auto object-cover"
-                  src="https://your-image-link/blockchain-analytics.png"
+                  src="src/images/hand.jpg"
                   alt="Blockchain Analytics"
                 />
               </div>
@@ -97,7 +97,7 @@ export default function BlockchainAI() {
                 <div className="flex items-center justify-center h-full text-white">
                   <div className="text-center px-6">
                     <h4 className="font-bold">SmartContract.jsx</h4>
-                    <p>Code example goes here...</p>
+                    <p></p>
                   </div>
                 </div>
               </div>

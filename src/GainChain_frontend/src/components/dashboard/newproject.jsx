@@ -1,29 +1,42 @@
 import React, { useState } from "react";
+import ProjectNameSection from "./ProjectNameSection";
+import CodeGenerationPrompt from "./Codegeneration"; // Import the new prompt component
+import BackendSection from "./BackendSection";
+import FrontendCanvasSection from "./FrontendCanvasSection";
+import ProjectFileSetupSection from "./ProjectFileSection";
+import DeploymentSection from "./DeploymentSection";
 
 const NewProject = () => {
+  const [step, setStep] = useState(1);
   const [projectName, setProjectName] = useState("");
+  const [customization, setCustomization] = useState(""); // State to capture prompt customization
 
-  const handleAddProject = () => {
-    alert(`Project "${projectName}" added!`);
-    setProjectName("");
+  const nextStep = (data = "") => {
+    if (step === 1) setProjectName(data); // Set project name at step 1
+    if (step === 2) setCustomization(data); // Set customization input at step 2
+    setStep(step + 1);
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-lg font-bold mb-4">Start a New Project</h2>
-      <input
-        type="text"
-        className="w-full p-2 border rounded-md mb-4"
-        placeholder="Enter project name"
-        value={projectName}
-        onChange={(e) => setProjectName(e.target.value)}
-      />
-      <button
-        onClick={handleAddProject}
-        className="w-full bg-teal-500 text-white p-2 rounded-md hover:bg-teal-600"
-      >
-        Add Project
-      </button>
+    <div className="p-4 text-black">
+      <h1 className="text-2xl font-bold">Project Setup Flow</h1>
+
+      {step === 1 && <ProjectNameSection onNext={nextStep} />}
+      {step === 2 && (
+        <CodeGenerationPrompt onNext={nextStep} />
+      )} {/* Add prompt step */}
+      {step === 3 && (
+        <BackendSection projectName={projectName} onNext={nextStep} />
+      )}
+      {step === 4 && (
+        <FrontendCanvasSection projectName={projectName} onNext={nextStep} />
+      )}
+      {step === 5 && (
+        <ProjectFileSetupSection projectName={projectName} />
+      )}
+      {step === 6 && (
+        <DeploymentSection projectName={projectName} />
+      )}
     </div>
   );
 };
