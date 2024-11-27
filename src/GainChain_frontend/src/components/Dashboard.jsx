@@ -2,62 +2,72 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Home,
+  FolderPlus,
   Folder,
-  Search,
-  FileText,
-  HelpCircle,
-  Calendar,
+  MessageCircle,
+  LogOut,
   Settings as SettingsIcon,
-} from "lucide-react"; // Icons
-import Sidebar from "../components/dashboard/Sidebar";
-import Header from "../components/dashboard/Header";
-import Overview from "../components/dashboard/Overview";
-import CompanyProfile from "../components/dashboard/CompanyProfile";
-import HelpCenter from "../components/dashboard/HelpCenter";
+} from "lucide-react";
+import Sidebar from "../components/dashboard/Sidebar.jsx";
+import Header from "../components/dashboard/Header.jsx";
+import Overview from "../components/dashboard/Overview.jsx";
+import NewProject from "../components/dashboard/newproject.jsx";
+import MyProjects from "../components/dashboard/MyProjects.jsx";
+import ChatSection from "../components/dashboard/ChatSection.jsx";
+import Settings from "./dashboard/Settings.jsx";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Overview");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const mockEmployerData = {
-    companyName: "Gain Chain Inc.",
+  const mockData = {
     stats: {
       activeJobs: 12,
       applicants: 150,
       hires: 20,
     },
-    profile: {
-      name: "Gain Chain",
-      location: "Nairobi, Kenya",
-      industry: "Blockchain",
-      description: "Decentralized social media platform for the future.",
-    },
-    faqs: [
-      { question: "How to post a job?", answer: "Navigate to 'Overview' and click 'Add Job'." },
-      { question: "How to track applicants?", answer: "Go to 'Overview' to view and manage applicants." },
+    newProjects: [
+      { name: "Blockchain Explorer", status: "Ongoing" },
+      { name: "Smart Contract Manager", status: "Completed" },
+    ],
+    myProjects: [
+      { name: "Portfolio Redesign", status: "Completed" },
+      { name: "Recruitment App", status: "In Progress" },
+    ],
+    chatMessages: [
+      { sender: "Team Lead", message: "Don't forget the roadmap meeting!" },
+      { sender: "Developer", message: "I'll update the feature by EOD." },
     ],
   };
 
   const renderContent = () => {
     switch (activeTab) {
       case "Overview":
-        return <Overview stats={mockEmployerData.stats} />;
-      case "Company Profile":
-        return <CompanyProfile profile={mockEmployerData.profile} />;
-      case "Help Center":
-        return <HelpCenter faqs={mockEmployerData.faqs} />;
+        return <Overview stats={mockData.stats} />;
+      case "New Project":
+        return <NewProject projects={mockData.newproject} />;
+      case "My Projects":
+        return <MyProjects projects={mockData.myProjects} />;
+      case "Chat Section":
+        return <ChatSection messages={mockData.chatMessages} />;
+      case "Settings":
+        return <Settings />;
+      case "Logout":
+        // Simulate logout
+        window.location.href = "/login";
+        break;
       default:
-        return <Overview stats={mockEmployerData.stats} />;
+        return <Overview stats={mockData.stats} />;
     }
   };
 
   const tabs = [
     { icon: Home, label: "Overview" },
-    { icon: Folder, label: "Company Profile" },
-    { icon: HelpCircle, label: "Help Center" },
-    { icon: Calendar, label: "Events" },
-    { icon: Search, label: "Search" },
-    { icon: FileText, label: "Reports" },
+    { icon: FolderPlus, label: "New Project" },
+    { icon: Folder, label: "My Projects" },
+    { icon: MessageCircle, label: "Chat Section" },
+    { icon: LogOut, label: "Logout" },
+    { icon: SettingsIcon, label: "Settings" },
   ];
 
   return (
@@ -71,7 +81,7 @@ const Dashboard = () => {
       />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header
-          companyName={mockEmployerData.companyName}
+          companyName="Gain Chain Inc."
           toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         />
         <main className="flex-1 overflow-y-auto bg-gray-800">

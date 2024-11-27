@@ -1,15 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Settings, LogOut } from "lucide-react";
+import { ChevronRight, LogOut } from "lucide-react";
 
 const Sidebar = ({ activeTab, setActiveTab, tabs, isOpen }) => {
-  console.log("Sidebar render", { activeTab, isOpen, tabs });
-
-  // Mock data
   const mockData = {
-    profilePicUrl: "https://via.placeholder.com/150/FF6347/FFFFFF?text=Profile", // Mock profile picture URL
-    username: "John Doe", // Mock username
-    role: "Software Engineer", // Mock role
+    profilePicUrl: "https://via.placeholder.com/150/FF6347/FFFFFF?text=Profile",
+    username: "John Doe",
+    role: "Software Engineer",
   };
 
   return (
@@ -17,21 +14,23 @@ const Sidebar = ({ activeTab, setActiveTab, tabs, isOpen }) => {
       initial={{ x: -300 }}
       animate={{ x: isOpen ? 0 : -300 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-white w-64 min-h-screen overflow-y-auto fixed lg:static lg:translate-x-0 shadow-lg z-20"
+      className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 w-64 min-h-screen overflow-y-auto fixed lg:static lg:translate-x-0 shadow-lg z-20"
     >
-      <div className="px-6 py-4 flex items-center space-x-4">
+      {/* Profile Section */}
+      <div className="px-6 py-4 flex items-center space-x-4 border-b dark:border-gray-700">
         <img
-          src={mockData.profilePicUrl} // Using mock profile picture URL
+          src={mockData.profilePicUrl}
           alt="Profile"
           className="w-12 h-12 rounded-full object-cover border-2 border-orange-500"
         />
         <div>
-          <h3 className="text-lg font-semibold text-gray-800">{mockData.username}</h3>
-          <p className="text-sm text-gray-600">{mockData.role}</p>
+          <h3 className="text-lg font-semibold">{mockData.username}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{mockData.role}</p>
         </div>
       </div>
-      
-      <nav className="mt-8 px-4">
+
+      {/* Navigation Tabs */}
+      <nav className="mt-4 px-4">
         {tabs.map((tab) => (
           <motion.button
             key={tab.label}
@@ -40,7 +39,7 @@ const Sidebar = ({ activeTab, setActiveTab, tabs, isOpen }) => {
             className={`flex items-center space-x-3 py-3 px-4 w-full rounded-lg transition-colors ${
               activeTab === tab.label
                 ? "bg-orange-500 text-white"
-                : "text-gray-600 hover:bg-gray-100"
+                : "hover:bg-gray-100 dark:hover:bg-gray-800"
             }`}
           >
             <tab.icon size={20} />
@@ -52,20 +51,12 @@ const Sidebar = ({ activeTab, setActiveTab, tabs, isOpen }) => {
         ))}
       </nav>
 
-      {/* Settings and Logout section */}
-      <div className="mt-auto px-4 py-4">
+      {/* Logout Section */}
+      <div className="mt-auto px-4 py-4 border-t dark:border-gray-700">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center space-x-3 py-3 px-4 w-full rounded-lg transition-colors text-gray-600 hover:bg-gray-100"
-        >
-          <Settings size={20} />
-          <span className="text-sm font-medium">Settings</span>
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="flex items-center space-x-3 py-3 px-4 w-full rounded-lg transition-colors text-gray-600 hover:bg-gray-100 mt-3"
+          className="flex items-center space-x-3 py-3 px-4 w-full rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           <LogOut size={20} />
           <span className="text-sm font-medium">Logout</span>
