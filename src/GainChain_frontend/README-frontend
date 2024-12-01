@@ -3,7 +3,7 @@
 The frontend for the GainChain IDE is designed to offer a seamless and intuitive interface for developers, with powerful features tailored for Web3 and ICP-specific development. Below is the detailed plan and breakdown of the frontend, including components, user flows, and integration points with the backend.
 
 ---
-
+cargo build --target wasm32-unknown-unknown --release -p gain_chain_backend --offline
 ### **1. Key Features**
 
 1. **AI-Powered Canvas**:

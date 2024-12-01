@@ -1,13 +1,49 @@
 //src/GainChain_backend/src/lib.rs
 pub mod controllers;
-pub mod services;
-pub mod models;
+
 
 use ic_cdk_macros::query;
 use controllers::project_controller::{create_project, list_user_projects, delete_project};
 use crate::services::neural_net_service::NeuralNetwork;
 
 use serde_json::{Value, from_str, to_string};
+
+
+
+pub mod api;
+pub mod models;
+pub mod services;
+pub mod utils;
+pub mod editor;
+
+pub use api::*;
+pub use models::*;
+pub use services::*;
+pub use utils::*;
+pub use editor::*;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /// Example query function.
 #[query]

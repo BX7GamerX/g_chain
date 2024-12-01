@@ -1,4 +1,3 @@
-// src/controllers/auth_controller.rs
 use ic_cdk_macros::{query, update};
 use serde_json::json;
 
@@ -25,6 +24,8 @@ pub fn logout() -> String {
     response.to_string()
 }
 
+/// Authenticates a user based on their principal ID.
+#[update]
 pub fn authenticate_user(principal_id: String) -> String {
     // In production, verify principal_id with Internet Identity
     let response = json!({
@@ -32,5 +33,6 @@ pub fn authenticate_user(principal_id: String) -> String {
         "message": "User authenticated",
         "principal_id": principal_id,
     });
-    serde_json::to_string(&response).expect("Failed to serialize authentication response")
+
+    response.to_string()
 }

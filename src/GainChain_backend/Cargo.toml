@@ -7,16 +7,19 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-candid = "0.10"
+anyhow = "1.0.93"
+candid = "0.10.10"
+chrono = "0.4.38"
 ic-cdk = "0.17.0"
-ic-cdk-macros = "0.16"
+ic-cdk-macros = "0.17.0"
+log = "0.4.22"
+nalgebra = "0.33.2"
 ndarray = "0.16.1"
-bcrypt = "0.15"
-getrandom = { version = "0.2.15", features = ["js"] }
-nalgebra = "0.30"
-chrono = "0.4"
-uuid = { version = "0.8", features = ["v4"] }
-serde_derive = "1.0"
-reqwest = { version = "0.11", features = ["json"] }
+serde = "1.0.215"
+serde_json = "1.0.133"
+syntect = "5.2.0"
+tokio = "1.41.1"
+
+
+[dev-dependencies]
+mockall = "0.11" # For unit testing
