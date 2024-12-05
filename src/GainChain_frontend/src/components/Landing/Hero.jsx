@@ -1,57 +1,62 @@
-import React from 'react';
+import React, { useState } from "react";
+import { AiOutlineAppstoreAdd } from "react-icons/ai"; // Example tech icon
 
-const links = [
-  { name: 'Open roles', href: '#' },
-  { name: 'Internship program', href: '#' },
-  { name: 'Our values', href: '#' },
-  { name: 'Meet our leadership', href: '#' },
-];
+const Hero = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-const stats = [
-  { name: 'Global Users', value: '1+' },
-  { name: 'GCH Coins Circulated', value: '999,999,999+' },
-  { name: 'Blockchain Sites Built', value: '1' },
-  { name: 'Community-driven Governance', value: '100%' },
-];
+  // Update mouse position on mouse movement
+  const handleMouseMove = (e) => {
+    setMousePosition({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
 
-export default function GainChainOverview() {
   return (
-    <div className="relative isolate overflow-hidden bg-[#001F3F] py-24 sm:py-32"> {/* Deep Navy Blue */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#00A7E1] via-[#40E0D0] to-[#FF4500] opacity-20" /> {/* Gradient background */}
+    <div
+      className="relative isolate overflow-hidden bg-gradient-to-br from-[#00A7E1] to-[#40E0D0] py-32 sm:py-48"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Background Effects */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="src/images/login.jpg"
-          alt="Gain Chain Background"
-          className="h-full w-full object-cover opacity-10"
+          src="src/images/home.jpg" // Replace with actual image path
+          alt="Hero Background"
+          className="h-full w-full object-cover opacity-50"
         />
       </div>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-5xl font-bold tracking-tight text-white sm:text-7xl justify-center">
-            Join the Gain Chain AI Revolution
-          </h2>
-          <p className="mt-8 text-lg font-medium text-gray-300 sm:text-xl">
-            Empowering developers to build blockchain sites with AI, seamlessly. Earn and trade GCH Coins while connecting with our global community.
-          </p>
-        </div>
-        <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold text-white sm:grid-cols-2 md:flex lg:gap-x-10">
-            {links.map((link) => (
-              <a key={link.name} href={link.href} className="hover:underline">
-                {link.name} <span aria-hidden="true">&rarr;</span>
-              </a>
-            ))}
-          </div>
-          <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.name} className="flex flex-col-reverse gap-1">
-                <dt className="text-base font-medium text-gray-300">{stat.name}</dt>
-                <dd className="text-4xl font-bold tracking-tight text-white">{stat.value}</dd>
-              </div>
-            ))}
-          </dl>
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#001F3F] to-transparent opacity-50" />
+
+      {/* Mouse-Following AI Icon */}
+      <AiOutlineAppstoreAdd
+        className="absolute text-[#40E0D0] text-4xl transition-transform duration-100 ease-linear pointer-events-none"
+        style={{
+          top: mousePosition.y - 20,
+          left: mousePosition.x - 20,
+        }}
+      />
+
+      {/* Hero Content */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+        <h1 className="text-6xl font-bold text-white sm:text-8xl">
+          GainChain AI
+        </h1>
+        <p className="mt-6 text-lg font-medium text-gray-200 sm:text-2xl max-w-3xl mx-auto">
+          Your Web3 Developer at the click of a button. Build blockchain
+          applications effortlessly and harness the power of AI for Web3
+          innovation.
+        </p>
+        <div className="mt-10 flex justify-center gap-6">
+          <button className="px-8 py-3 text-lg font-semibold text-white bg-[#001F3F] rounded-full shadow-lg hover:bg-[#40E0D0] hover:scale-105 transition-all">
+            Get Started
+          </button>
+          <button className="px-8 py-3 text-lg font-semibold text-[#001F3F] bg-white rounded-full shadow-lg hover:text-white hover:bg-[#40E0D0] hover:scale-105 transition-all">
+            Learn More
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Hero;
