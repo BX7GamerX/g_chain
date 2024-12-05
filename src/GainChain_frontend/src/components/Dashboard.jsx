@@ -45,7 +45,7 @@ const Dashboard = () => {
       case "Overview":
         return <Overview stats={mockData.stats} />;
       case "New Project":
-        return <NewProject projects={mockData.newproject} />;
+        return <NewProject projects={mockData.newProjects} />;
       case "My Projects":
         return <MyProjects projects={mockData.myProjects} />;
       case "Chat Section":
@@ -71,7 +71,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex h-screen bg-white text-black">
       <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -84,7 +84,7 @@ const Dashboard = () => {
           companyName="Gain Chain Inc."
           toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         />
-        <main className="flex-1 overflow-y-auto bg-gray-800">
+        <main className="flex-1 overflow-y-auto bg-white">
           <div className="container mx-auto px-6 py-8">
             <motion.div
               key={activeTab}
@@ -93,7 +93,7 @@ const Dashboard = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h1 className="text-3xl font-bold mb-6 text-orange-500">
+              <h1 className="text-3xl font-bold mb-6 text-teal-600">
                 {activeTab}
               </h1>
               {renderContent()}
