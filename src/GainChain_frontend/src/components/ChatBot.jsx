@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import chatbotAPI from "../services/Chatbot.js";
 
-const Chatbot = () => {
+const Chatbot = ({ setShowChatbot }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
@@ -20,8 +19,8 @@ const Chatbot = () => {
       chatbotReply =
         "Hello! Welcome to Gain Chain 🚀. Gain Chain is a decentralized social media platform where you can interact, share, and earn G-Chain coins securely. How can I assist you today?";
     } else {
-      // Fetch chatbot response for other messages
-      chatbotReply = await chatbotAPI.sendMessage(input);
+      // Simulate a response
+      chatbotReply = "I'm here to help! What can I do for you?";
     }
 
     // Simulate typing delay for realism
@@ -35,17 +34,23 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-10 bg-gray-100 shadow-xl rounded-lg border border-gray-300">
+    <div className="relative w-fullmax-w-lg bg-white shadow-lg rounded-lg border border-gray-300 p-4 z-60">
       {/* Chat Header */}
-      <div className="bg-blue-500 text-white p-4 rounded-t-lg">
-        <h2 className="text-lg font-bold text-center">Chat with Gain Chain</h2>
+      <div className="bg-blue-500 text-white p-4 rounded-t-lg shadow-md flex justify-between items-center">
+        <h2 className="text-lg font-semibold text-center">hello G-Bot</h2>
+        <button
+          onClick={() => setShowChatbot(false)}
+          className="text-white text-lg font-bold"
+        >
+          ×
+        </button>
       </div>
 
       {/* Chat Messages */}
-      <div className="p-4 h-96 overflow-y-auto space-y-4 bg-white">
+      <div className="p-4 h-80 overflow-y-auto space-y-4 bg-gray-50">
         {messages.length === 0 ? (
           <p className="text-center text-gray-500 italic">
-            Start the conversation...
+            Hello , I am G-Bot 
           </p>
         ) : (
           messages.map((message, index) => (
@@ -58,8 +63,8 @@ const Chatbot = () => {
               <div
                 className={`px-4 py-2 rounded-lg max-w-xs text-sm ${
                   message.sender === "user"
-                    ? "bg-blue-500 text-white shadow-md"
-                    : "bg-gray-200 text-gray-800 shadow-inner"
+                    ? "bg-blue-500 text-white shadow-lg"
+                    : "bg-white text-gray-800 border border-gray-300 shadow-md"
                 }`}
               >
                 {message.text}
@@ -69,19 +74,8 @@ const Chatbot = () => {
         )}
       </div>
 
-      {/* Typing Indicator */}
-      <div
-        className={`p-2 text-gray-500 text-sm italic ${
-          messages.some((msg) => msg.sender === "bot" && msg.text === "...typing")
-            ? "visible"
-            : "invisible"
-        }`}
-      >
-        Gain Chain Assistant is typing...
-      </div>
-
       {/* Input Box */}
-      <div className="flex items-center border-t border-gray-300 p-2 bg-gray-100">
+      <div className="flex items-center border-t border-gray-300 p-2 bg-white">
         <input
           type="text"
           className="flex-1 px-4 py-2 border rounded-full outline-none focus:ring-2 focus:ring-blue-500"
@@ -91,7 +85,7 @@ const Chatbot = () => {
         />
         <button
           onClick={handleSendMessage}
-          className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-md"
+          className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-md transition"
         >
           Send
         </button>
