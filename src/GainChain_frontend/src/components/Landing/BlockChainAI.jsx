@@ -1,5 +1,4 @@
 import React from "react";
-import { animated } from "react-spring";
 
 export default function IntegratedSection() {
   return (
@@ -17,7 +16,7 @@ export default function IntegratedSection() {
         </p>
 
         {/* Features Section */}
-        <div className="mt-12 grid gap-8 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
+        <div className="mt-12 grid gap-8 sm:mt-16 lg:grid-cols-2">
           {/* AI-Powered Blockchain */}
           <div className="relative flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
             <div className="px-8 pt-8 sm:px-10 sm:pt-10 bg-[#002C72] text-white">
@@ -26,9 +25,9 @@ export default function IntegratedSection() {
                 Harness the power of AI to enhance blockchain development and user engagement on Gain Chain.
               </p>
             </div>
-            <div className="relative h-80 sm:h-96 w-full bg-cover bg-center">
+            <div className="h-56 w-full bg-cover bg-center">
               <img
-                className="absolute inset-0 h-full w-full object-cover opacity-70"
+                className="h-full w-full object-cover"
                 src="src/images/hand.jpg"
                 alt="AI Blockchain"
               />
@@ -43,9 +42,9 @@ export default function IntegratedSection() {
                 Gain Chain ensures top-notch security through decentralized protocols and cryptography.
               </p>
             </div>
-            <div className="flex items-center justify-center px-8 py-6">
+            <div className="h-56 w-full bg-cover bg-center">
               <img
-                className="w-full max-w-sm rounded-md shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+                className="h-full w-full object-cover"
                 src="src/images/security.webp"
                 alt="Decentralized Security"
               />
@@ -60,16 +59,16 @@ export default function IntegratedSection() {
                 Gain valuable insights through AI-powered analytics for blockchain transactions and behavior patterns.
               </p>
             </div>
-            <div className="flex items-center justify-center py-6">
+            <div className="h-56 w-full bg-cover bg-center">
               <img
-                className="h-40 w-auto object-cover rounded-md shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+                className="h-full w-full object-cover"
                 src="src/images/community.webp"
                 alt="Blockchain Analytics"
               />
             </div>
           </div>
 
-          {/* New Section: Community & Support */}
+          {/* Community & Support */}
           <div className="relative flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
             <div className="px-8 pt-8 sm:px-10 sm:pt-10 bg-[#002C72] text-white">
               <h3 className="text-lg font-medium text-center">Community & Support</h3>
@@ -77,10 +76,10 @@ export default function IntegratedSection() {
                 Join our vibrant community of developers and blockchain enthusiasts. Gain Chain offers 24/7 support and collaborative learning to help you build, share, and innovate.
               </p>
             </div>
-            <div className="flex items-center justify-center px-8 py-6">
+            <div className="h-56 w-full bg-cover bg-center">
               <img
-                className="w-full max-w-md rounded-md shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
-                src="src/images/community-support.webp"
+                className="h-full w-full object-cover"
+                src="src/images/community.jpeg"
                 alt="Community Support"
               />
             </div>
