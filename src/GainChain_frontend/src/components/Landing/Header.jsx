@@ -1,151 +1,121 @@
-import React, { useEffect, useState } from "react";
-import logo from "../../images/gainchain.png"; // Original logo
-import logo2 from "../../images/neuro.png"; // New logo on scroll
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { IoHome } from 'react-icons/io5'; // Importing the home icon from react-icons
+import logo from '../../images/GAIN CHAIN AI.png';
+import logo2 from '../../images/neuro.png';
+import coinImage from '../../images/gchcoinfinale.png';
+import Sparkles from './Sparkles.jsx'; // Import Sparkles component
 
 const Header = () => {
   const [sticky, setSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleScroll = () => {
-    setSticky(window.scrollY > 50);
-  };
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      setSticky(window.scrollY > 50);
     };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (id) => {
+    if (id === 'bottom') {
+      window.scrollTo(0, document.body.scrollHeight);
+    } else {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+    setMenuOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
-    <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        sticky
-          ? "bg-orange-200 bg-opacity-90 backdrop-blur-md shadow-lg h-[90px]"
-          : "bg-white h-[110px]"
-      }`}
-    >
-      <div className="max-w-screen-xl mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Logo and Title */}
-        <div className="flex items-center space-x-4">
+    <div>
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all ${
+          sticky
+            ? 'bg-gradient-to-r from-blue-600 bg-opacity-90 backdrop-blur-md shadow-lg to-transparent'
+            : 'bg-gradient-to-r from-teal-400 to-blue-600 bg-opacity-90 backdrop-blur-md shadow-lg'
+        }`}
+      >
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <img
             src={sticky ? logo2 : logo}
             alt="Logo"
             className={`transition-all duration-300 ${
-              sticky ? "w-16 h-auto" : "rounded-full w-20 h-20"
-            }`}
+              sticky ? 'w-14 ' : 'w-16'
+            } rounded-full`}
           />
-          <div className={`font-bold transition-all duration-300`}>
-            <span
-              className={`${
-                sticky
-                  ? "text-gray-900 text-sm uppercase"
-                  : "text-black text-xl uppercase"
-              }`}
-            >
-              GainChain AI
-            </span>
-          </div>
-        </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex space-x-8">
-          <a
-            href="/"
-            className={`font-medium ${
-              sticky ? "text-gray-700" : "text-black"
-            } hover:text-orange-600 transition-colors`}
-          >
-            Home
-          </a>
-          <a
-            href="/about"
-            className={`font-medium ${
-              sticky ? "text-gray-700" : "text-black"
-            } hover:text-orange-600 transition-colors`}
-          >
-            About
-          </a>
-          <a
-            href="/contact"
-            className={`font-medium ${
-              sticky ? "text-gray-700" : "text-black"
-            } hover:text-orange-600 transition-colors`}
-          >
-            Contact
-          </a>
-          <div className="relative group">
-            <button className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
-              Get Started
-            </button>
-            <div className="absolute left-0 hidden mt-2 bg-white shadow-lg rounded-lg group-hover:block">
-              <a
-                href="/signup"
-                className="block px-4 py-2 text-gray-800 hover:text-orange-600"
+          <nav className="hidden lg:flex items-center space-x-6">
+            {/* Home Icon Button */}
+            <motion.button
+              className="text-white p-2 hover:text-teal-400 transition-all"
+              onClick={() => navigate('/')}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <IoHome className="w-5 h-5" />
+            </motion.button>
+
+            {/* GCH Coin Button with Motion and Sparkles */}
+            <motion.button
+              className="relative p-2 rounded-full bg-transparent shadow-md"
+              onClick={() => navigate('/gch-coin')}
+              whileHover={{ rotate: 360, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <img
+                src={coinImage}
+                alt="GCH Coin"
+                className="w-14 h-14 rounded-full"
+              />
+              {/* Add the Sparkles component */}
+              <Sparkles />
+            </motion.button>
+
+            <div className="relative">
+              <button
+                onClick={toggleDropdown}
+                className="text-white bg-teal-500 px-4 py-2 rounded-full shadow-md hover:bg-blue-600 transition-all"
               >
-                New to GainChain? Sign Up
-              </a>
-              <a
-                href="/login"
-                className="block px-4 py-2 text-gray-800 hover:text-orange-600"
-              >
-                Already Have an Account? Log In
-              </a>
+                Get Started
+              </button>
+              {dropdownOpen && (
+                <div className="absolute mt-2 w-48 bg-white shadow-lg rounded-md border z-50">
+                  <button
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      navigate('/signup');
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    New Member
+                  </button>
+                  <button
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      navigate('/login');
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    Log In
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
-        </nav>
-
-        {/* Mobile Hamburger Icon */}
-        <div className="lg:hidden flex flex-col items-end" onClick={toggleMenu}>
-          <div className="space-y-1.5 cursor-pointer">
-            <span className="block w-6 h-0.5 bg-gray-800"></span>
-            <span className="block w-6 h-0.5 bg-gray-800"></span>
-            <span className="block w-6 h-0.5 bg-gray-800"></span>
-          </div>
+          </nav>
         </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`lg:hidden transition-transform ${
-          menuOpen ? "translate-y-0" : "-translate-y-full"
-        } bg-white absolute left-0 right-0 shadow-lg`}
-      >
-        <ul className="flex flex-col items-center space-y-4 py-6">
-          <li>
-            <a
-              href="/"
-              className="text-gray-800 font-medium hover:text-orange-600 transition-colors"
-              onClick={toggleMenu}
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              href="/about"
-              className="text-gray-800 font-medium hover:text-orange-600 transition-colors"
-              onClick={toggleMenu}
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a
-              href="/contact"
-              className="text-gray-800 font-medium hover:text-orange-600 transition-colors"
-              onClick={toggleMenu}
-            >
-              Contact
-            </a>
-          </li>
-        </ul>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 };
 

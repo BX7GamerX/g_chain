@@ -1,5 +1,6 @@
 import React from "react";
 import { useGoogleLogin } from "@react-oauth/google";
+import { Link } from "react-router-dom"; // Import Link for navigation
 
 const SignUpPage = () => {
   // Handle Google Sign-In
@@ -78,6 +79,19 @@ const SignUpPage = () => {
               </svg>
               Sign Up with Internet Identity
             </button>
+          </div>
+
+          {/* New Member Link */}
+          <div className="mt-6 text-center">
+            <p className="text-gray-600">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-teal-600 font-semibold hover:underline"
+              >
+                Login here
+              </Link>
+            </p>
           </div>
         </div>
       </div>

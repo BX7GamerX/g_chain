@@ -9,6 +9,7 @@ export default function Contact() {
   });
 
   const [status, setStatus] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,6 +18,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     emailjs
       .send(
@@ -33,32 +35,44 @@ export default function Contact() {
       .then(
         () => {
           setStatus('Message sent successfully!');
-          setFormData({ name: '', email: '', message: '' }); // Reset the form
+          setIsLoading(false);
+          setFormData({ name: '', email: '', message: '' });
         },
         (error) => {
           setStatus('Failed to send message. Please try again later.');
+          setIsLoading(false);
           console.error('EmailJS Error:', error);
         }
       );
   };
 
   return (
-    <section className="bg-gray-900 py-16 sm:py-24 lg:py-32">
+    <section className="bg-white py-16 sm:py-24 lg:py-32">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        <h2 className="text-4xl font-bold tracking-tight text-white text-center">
+        <h2 className="text-4xl font-bold tracking-tight text-blue-700 text-center">
           Get in Touch
         </h2>
-        <p className="mt-4 text-lg text-gray-400 text-center">
+        <p className="mt-4 text-lg text-blue-600 text-center">
           Have questions, feedback, or opportunities to discuss? We'd love to hear from you.
         </p>
         {status && (
-          <div className={`mt-6 text-center text-lg font-semibold ${status.includes('success') ? 'text-green-400' : 'text-red-500'}`}>
+          <div
+            className={`mt-6 text-center text-lg font-semibold ${
+              status.includes('success') ? 'text-blue-500' : 'text-red-500'
+            }`}
+          >
             {status}
           </div>
         )}
-        <form onSubmit={handleSubmit} className="mt-12 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+        <form
+          onSubmit={handleSubmit}
+          className="mt-12 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
+        >
           <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="name" className="block text-sm font-medium text-gray-300">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
               Your Name
             </label>
             <input
@@ -69,11 +83,15 @@ export default function Contact() {
               onChange={handleChange}
               required
               placeholder="Enter your full name"
-              className="mt-2 w-full rounded-md bg-gray-800 text-white placeholder-gray-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              aria-label="Your Name"
+              className="mt-2 w-full rounded-md border border-gray-300 bg-white text-gray-700 placeholder-gray-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input
@@ -84,11 +102,15 @@ export default function Contact() {
               onChange={handleChange}
               required
               placeholder="Enter your email address"
-              className="mt-2 w-full rounded-md bg-gray-800 text-white placeholder-gray-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              aria-label="Your Email"
+              className="mt-2 w-full rounded-md border border-gray-300 bg-white text-gray-700 placeholder-gray-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div className="col-span-2">
-            <label htmlFor="message" className="block text-sm font-medium text-gray-300">
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-gray-700"
+            >
               Your Message
             </label>
             <textarea
@@ -99,15 +121,21 @@ export default function Contact() {
               required
               placeholder="Write your message here..."
               rows="5"
-              className="mt-2 w-full rounded-md bg-gray-800 text-white placeholder-gray-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              aria-label="Your Message"
+              className="mt-2 w-full rounded-md border border-gray-300 bg-white text-gray-700 placeholder-gray-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div className="col-span-2">
             <button
               type="submit"
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-orange-600 rounded-md shadow-sm hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+              disabled={isLoading}
+              className={`w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                isLoading
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-500'
+              }`}
             >
-              Send Message
+              {isLoading ? 'Sending...' : 'Send Message'}
             </button>
           </div>
         </form>
