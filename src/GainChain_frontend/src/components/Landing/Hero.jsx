@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { AiOutlineAppstoreAdd } from "react-icons/ai"; // Example tech icon
+import { useNavigate } from "react-router-dom"; // Import useNavigate for routing
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const navigate = useNavigate(); // Hook for navigation
 
   // Update mouse position on mouse movement
   const handleMouseMove = (e) => {
@@ -46,12 +48,32 @@ const Hero = () => {
           power of AI with GainChain.
         </p>
         <div className="mt-10 flex justify-center gap-6">
-          <button className="px-8 py-3 text-lg font-semibold text-white bg-[#002C72] rounded-full shadow-lg hover:bg-[#00A7E1] hover:scale-105 transition-all">
+          <button
+            className="px-8 py-3 text-lg font-semibold text-white bg-[#002C72] rounded-full shadow-lg hover:bg-[#00A7E1] hover:scale-105 transition-all"
+            onClick={() => navigate('/signup')} // Navigate to the signup route
+          >
             Get Started
           </button>
-          <button className="px-8 py-3 text-lg font-semibold text-[#002C72] bg-white rounded-full shadow-lg hover:text-white hover:bg-[#00A7E1] hover:scale-105 transition-all">
-            Learn More
-          </button>
+        </div>
+      </div>
+
+      {/* Company Statistics Section (positioned at the bottom left corner) */}
+      <div className="absolute bottom-10 left-10 flex gap-12">
+        <div className="flex flex-col items-center">
+          <h3 className="text-4xl font-bold text-white">500+</h3>
+          <p className="text-lg mt-2 text-white">Projects Completed</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <h3 className="text-4xl font-bold text-white">100+</h3>
+          <p className="text-lg mt-2 text-white">Satisfied Clients</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <h3 className="text-4xl font-bold text-white">24/7</h3>
+          <p className="text-lg mt-2 text-white">Support Available</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <h3 className="text-4xl font-bold text-white">999,999,999+</h3>
+          <p className="text-lg mt-2 text-white">gch coins deployed</p>
         </div>
       </div>
     </div>
