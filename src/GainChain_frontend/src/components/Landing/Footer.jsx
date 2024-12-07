@@ -2,7 +2,6 @@ import React from 'react';
 import {
   MDBFooter,
   MDBContainer,
-  MDBIcon,
   MDBBtn,
 } from 'mdb-react-ui-kit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,9 +10,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css'; // Import FontAwesome st
 
 export default function Footer() {
   return (
-    <MDBFooter className="bg-[#002C72] text-white text-center py-4">
+    <MDBFooter className="bg-[#3E78B2] text-white text-center py-4">
       <MDBContainer className="d-flex justify-content-between align-items-center">
-        {/* Logo Section */}
         <div className="d-flex align-items-center">
           <img src="src/images/neuro.png" alt="Gain Chain Logo" style={{ height: '50px', marginRight: '15px' }} />
           <h5 className="mb-1" style={{ color: '#A9DFF1' }}>Gain Chain AI</h5>
@@ -22,7 +20,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Social Media Icons */}
         <section className="mb-4">
           <MDBBtn
             floating
@@ -92,12 +89,10 @@ export default function Footer() {
         </section>
       </MDBContainer>
 
-      {/* Email Display */}
       <p className="mb-4" style={{ fontSize: '1rem', color: '#B0B0B0' }}>
         Email: <a href="mailto:gainchainai@gmail.com" style={{ color: '#40E0D0' }}>gainchainai@gmail.com</a>
       </p>
 
-      {/* Footer Bottom */}
       <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
         © 2024 Gain Chain. All rights reserved.
       </div>

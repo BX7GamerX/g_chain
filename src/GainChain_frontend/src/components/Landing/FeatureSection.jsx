@@ -55,10 +55,9 @@ export default function FeatureSection() {
   });
 
   return (
-    <div className="relative isolate overflow-hidden bg-[#001F54] py-24 sm:py-32">
-      {/* Fancy Title */}
-      <div className="text-center mb-16">
-        <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00A7E1] via-[#40E0D0] to-[#00A7E1]">
+    <div className="py-16 bg-[#3E78B2]">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <h2 className="text-center text-3xl font-bold text-white">
           Discover Our Amazing Features
         </h2>
         <p className="mt-4 text-lg text-white">
@@ -67,21 +66,19 @@ export default function FeatureSection() {
         </p>
       </div>
 
-      {/* Feature Cards and Image */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-wrap lg:flex-nowrap items-center">
-          {/* Feature Cards */}
           <div className="w-full lg:w-1/2 space-y-8">
             {features.map((feature, index) => (
               <animated.div
                 key={index}
                 style={index === activeFeature ? cardAnimation : undefined}
-                className="relative p-6 bg-[#002C72] text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out"
+                className="relative p-6 bg-[#004BA8] text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out"
                 onMouseEnter={() => setActiveFeature(index)}
                 onMouseLeave={() => setActiveFeature(null)}
               >
                 <div className="flex items-center space-x-4">
-                  <div className="h-12 w-12 flex items-center justify-center bg-[#00A7E1] text-white rounded-full">
+                  <div className="h-12 w-12 flex items-center justify-center bg-[#3E78B2] text-white rounded-full">
                     <feature.icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-lg font-bold">{feature.name}</h3>
@@ -93,7 +90,6 @@ export default function FeatureSection() {
             ))}
           </div>
 
-          {/* Feature Image with Overlay */}
           <div className="hidden lg:block lg:w-1/2">
             <div className="relative">
               <img
@@ -105,7 +101,7 @@ export default function FeatureSection() {
                 style={{ opacity: 1 }}
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-3/4 bg-white bg-opacity-80 p-4 rounded-lg shadow-lg"
               >
-                <p className="text-[#001F54] text-lg font-medium text-center">
+                <p className="text-[#3E78B2] text-lg font-medium text-center">
                   {features[currentIndex].name}:{' '}
                   {features[currentIndex].description}
                 </p>

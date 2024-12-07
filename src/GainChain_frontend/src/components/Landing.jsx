@@ -8,12 +8,13 @@ import Header from './Landing/Header';
 import Contact from './Landing/contact';
 import Footer from './Landing/Footer';
 
-
 const Landing = () => {
   return (
-    <div>
+    <div className="bg-[#1B3022] text-white">
         <Header />
-        <Hero />
+        <Hero className="bg-[#395756] py-20">
+            <img src="path/to/your/ai-image.png" alt="AI Illustration" className="mx-auto" />
+        </Hero>
         <FeatureSection />
         <BlockchainAI />
         <TestimonialSlider />

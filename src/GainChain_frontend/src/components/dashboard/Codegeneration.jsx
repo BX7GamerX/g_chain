@@ -1,31 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 
 const CodeGenerationPrompt = ({ onNext }) => {
-  const [customization, setCustomization] = useState("");
-
-  const handleProceed = () => {
-    if (customization) {
-      onNext(customization);
-    } else {
-      alert("Please provide the required information before proceeding.");
-    }
-  };
-
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-semibold">Code Generation Prompt</h2>
-      <p className="my-2">Provide any customization or details for the code generation:</p>
+    <div className="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
+      <h2 className="text-2xl font-bold text-center mb-4">Code Generation Prompt</h2>
+      <p className="text-gray-700 mb-4">
+        Enter your customization prompt below to generate the code you need.
+      </p>
       <textarea
-        value={customization}
-        onChange={(e) => setCustomization(e.target.value)}
-        placeholder="Enter your customization details here..."
-        className="border border-gray-300 p-2 w-full h-24 my-2"
+        className="w-full h-32 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#004BA8]"
+        placeholder="Describe your requirements here..."
       />
       <button
-        onClick={handleProceed}
-        className="bg-teal-400 text-white p-2 rounded"
+        className="mt-4 w-full bg-[#004BA8] text-white py-2 rounded hover:bg-[#3E78B2] transition"
+        onClick={onNext}
       >
-        Proceed to Code Generation
+        Generate Code
       </button>
     </div>
   );

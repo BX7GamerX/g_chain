@@ -1,33 +1,36 @@
 import React from "react";
-import { useGoogleLogin } from "@react-oauth/google";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS
 
 const SignUpPage = () => {
-  // Handle Google Sign-In
-  const handleGoogleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      console.log("Google token:", tokenResponse);
-    },
-    onError: () => {
-      console.error("Google login failed");
-    },
-  });
-
   // Handle Internet Identity Sign-In
   const handleInternetIdentityLogin = () => {
     console.log("Internet Identity login triggered.");
-    alert("Logged in with Internet Identity (mock data).");
+    // Check if toast.POSITION is available before using it
+    if (toast && toast.POSITION) {
+      toast.info("Redirecting to Internet Identity login...", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+    } else {
+      console.error("toast.POSITION is not defined");
+    }
+    // Redirect to the Internet Identity login page
+    window.location.href = "https://identity.ic0.app/#authorize";
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Left Half: Image Section */}
-      <div className="hidden md:flex w-1/2 items-center justify-center bg-gradient-to-br from-teal-600 to-teal-800">
-        <img
-          src="src/images/hand.jpg"
-          alt="Sign Up Illustration"
-          className="w-4/5 h-3/4 rounded-lg shadow-lg"
-        />
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+      {/* Left Half: Image Section with Teal Background */}
+      <div className="w-full md:w-1/2 bg-teal-600 flex items-center justify-center">
+        <div className="w-3/4 h-auto md:h-3/4 overflow-hidden rounded-lg shadow-lg">
+          <img
+            src="src/images/hand.jpg"
+            alt="Sign Up Illustration"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
 
       {/* Right Half: Signup Form */}
@@ -41,28 +44,6 @@ const SignUpPage = () => {
           </p>
 
           <div className="space-y-6">
-            {/* Google Sign-In Button */}
-            <button
-              onClick={handleGoogleLogin}
-              className="w-full flex items-center justify-center py-3 px-4 text-white bg-teal-600 rounded-md font-semibold shadow-md hover:bg-teal-700 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-300 active:scale-95"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 48 48"
-              >
-                <path
-                  fill="#EA4335"
-                  d="M24 9.5c3.15 0 5.83 1.1 7.97 2.93l5.97-5.97C34.65 3.45 29.76 1.5 24 1.5 14.7 1.5 6.85 6.4 3.02 13.35l7.3 5.68C12.4 12.05 17.85 9.5 24 9.5z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M43.64 20.2H42V20H24v8h11.35c-1.5 4.35-5.65 7.5-11.35 7.5-6.15 0-11.4-4.13-13.27-9.68L3.02 27.8C6.85 36.4 14.7 42 24 42c8.6 0 15.84-5.93 18.43-14.07l.03-.01-7.32-5.7C33.32 23.67 28.91 26.2 24 26.2c-3.35 0-6.45-1.25-8.8-3.3l-.1-.1-7.3 5.7c2.68 4.27 7.58 7.2 13.2 7.2 6.3 0 11.52-3.5 14.24-8.55l7.55 6.23C42.97 36.23 34.77 42 24 42 12.43 42 3 32.93 3 22 3 11.07 12.43 2 24 2c5.75 0 10.96 1.7 15.24 4.58L43.6 9C40.4 6.2 34.88 4 24 4c-8.6 0-16.1 5.35-19.02 13.15l7.3 5.68C14.6 16.4 19.85 14 24 14c5.3 0 9.72 2.5 12.45 6.55L43.63 20H24z"
-                />
-              </svg>
-              Sign Up with Google
-            </button>
-
             {/* Internet Identity Sign-In Button */}
             <button
               onClick={handleInternetIdentityLogin}

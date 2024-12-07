@@ -40,14 +40,14 @@ const Header = () => {
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all ${
           sticky
-            ? 'bg-gradient-to-r from-blue-600 bg-opacity-90 backdrop-blur-md shadow-lg to-transparent'
-            : 'bg-gradient-to-r from-teal-400 to-blue-600 bg-opacity-90 backdrop-blur-md shadow-lg'
+            ? 'bg-gradient-to-r from-[#004BA8] bg-opacity-90 backdrop-blur-md shadow-lg'
+            : 'bg-gradient-to-r from-[#3E78B2] to-[#004BA8] bg-opacity-90 backdrop-blur-md shadow-lg'
         }`}
       >
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <img
             src={sticky ? logo2 : logo}
-            alt="Logo"
+            alt="Gain Chain Logo"
             className={`transition-all duration-300 ${
               sticky ? 'w-14 ' : 'w-16'
             } rounded-full`}
@@ -56,8 +56,9 @@ const Header = () => {
           <nav className="hidden lg:flex items-center space-x-6">
             {/* Home Icon Button */}
             <motion.button
-              className="text-white p-2 hover:text-teal-400 transition-all"
+              className="text-white p-2 hover:text-[#4A525A] transition-all"
               onClick={() => navigate('/')}
+              aria-label="Home"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 300 }}
@@ -69,6 +70,7 @@ const Header = () => {
             <motion.button
               className="relative p-2 rounded-full bg-transparent shadow-md"
               onClick={() => navigate('/gch-coin')}
+              aria-label="GCH Coin"
               whileHover={{ rotate: 360, scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 300 }}
@@ -85,7 +87,9 @@ const Header = () => {
             <div className="relative">
               <button
                 onClick={toggleDropdown}
-                className="text-white bg-teal-500 px-4 py-2 rounded-full shadow-md hover:bg-blue-600 transition-all"
+                className="text-white bg-[#3E78B2] px-4 py-2 rounded-full shadow-md hover:bg-[#004BA8] transition-all"
+                aria-haspopup="true"
+                aria-expanded={dropdownOpen}
               >
                 Get Started
               </button>

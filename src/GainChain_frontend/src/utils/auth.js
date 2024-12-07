@@ -23,3 +23,17 @@ export const logout = async () => {
 export const getPrincipal = () => {
   return authClient.getIdentity().getPrincipal().toText();
 };
+export const isAuthenticated = () => {
+  return authClient && authClient.isAuthenticated();
+};
+
+export const checkAuth = async () => {
+  if (!authClient) {
+    await initAuth();
+  }
+  return authClient.isAuthenticated();
+};
+
+export const getAuthClient = () => {
+  return authClient;
+};
