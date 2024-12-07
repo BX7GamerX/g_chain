@@ -1,13 +1,4 @@
 import React, { useState } from "react";
-import ProjectNameSection from "./ProjectNameSection";
-import CodeGenerationPrompt from "./Codegeneration"; // Import the new prompt component
-import BackendSection from "./BackendSection";
-import FrontendCanvasSection from "./FrontendCanvasSection";
-import ProjectFileSetupSection from "./ProjectFileSection";
-import DeploymentSection from "./DeploymentSection";
-import { toast, ToastContainer } from "react-toastify"; // Import Toastify
-import "react-toastify/dist/ReactToastify.css"; // Import default styles for Toastify
-import Logo from "../../images/neuro.png"; // Import your logo
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 
 const NewProject = () => {
@@ -37,12 +28,10 @@ const NewProject = () => {
       setMessages((prev) => [...prev, { type: "ai", text: "Let's start with the backend!" }]);
       setStep(4);
     } else if (step === 4) {
-      // Proceed to backend section
       setMessages((prev) => [...prev, { type: "ai", text: "Now, let's set up the backend." }]);
       setStep(5);
     } else if (step === 5) {
-      // Complete the process
-      handleComplete();
+      handleComplete(); // Call complete function
     }
   };
 
@@ -101,12 +90,12 @@ const NewProject = () => {
               className="border rounded-lg p-2 mb-2 w-full max-w-md"
               placeholder="Type your response..."
             />
-            <button
+            <Button
               className="bg-[#004BA8] text-white px-4 py-2 rounded hover:bg-[#3E78B2] transition"
               onClick={handleUserInput}
             >
               Send
-            </button>
+            </Button>
           </div>
         </>
       )}

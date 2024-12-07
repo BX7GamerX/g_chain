@@ -10,16 +10,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css'; // Import FontAwesome st
 
 export default function Footer() {
   return (
-    <MDBFooter className="bg-[#3E78B2] text-white text-center py-4">
-      <MDBContainer className="d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center">
-          <img src="src/images/neuro.png" alt="Gain Chain Logo" style={{ height: '50px', marginRight: '15px' }} />
-          <h5 className="mb-1" style={{ color: '#A9DFF1' }}>Gain Chain AI</h5>
-          <div className="text-centre">
-            <p style={{ color: '#A9DFF1', fontSize: '1rem' }}>Where AI and Blockchain Forge the Future</p>
-          </div>
-        </div>
-
+    <MDBFooter className="bg-[#03045E] text-white text-center py-4">
+      <MDBContainer className="d-flex flex-column align-items-center">
         <section className="mb-4">
           <MDBBtn
             floating
@@ -87,15 +79,26 @@ export default function Footer() {
             <FontAwesomeIcon icon={faGithub} size="lg" />
           </MDBBtn>
         </section>
+
+        <h5 className="mb-1" style={{ color: '#CAF0F8' }}>Gain Chain AI</h5>
+        <p style={{ color: '#90E0EF', fontSize: '1rem' }}>Innovating the Future with AI and Blockchain</p>
+
+        <div className="d-flex justify-content-center mb-3">
+          <a href="#" className="mx-2" style={{ color: '#00B4D8' }}>Legal Stuff</a>
+          <a href="#" className="mx-2" style={{ color: '#00B4D8' }}>Privacy Policy</a>
+          <a href="#" className="mx-2" style={{ color: '#00B4D8' }}>Security</a>
+          <a href="#" className="mx-2" style={{ color: '#00B4D8' }}>Website Accessibility</a>
+          <a href="#" className="mx-2" style={{ color: '#00B4D8' }}>Manage Cookies</a>
+        </div>
+
+        <p className="mb-4" style={{ fontSize: '1rem', color: '#90E0EF' }}>
+          Contact us: <a href="mailto:gainchainai@gmail.com" style={{ color: '#0077B6' }}>gainchainai@gmail.com</a>
+        </p>
+
+        <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+          © 2024 Gain Chain. All rights reserved.
+        </div>
       </MDBContainer>
-
-      <p className="mb-4" style={{ fontSize: '1rem', color: '#B0B0B0' }}>
-        Email: <a href="mailto:gainchainai@gmail.com" style={{ color: '#40E0D0' }}>gainchainai@gmail.com</a>
-      </p>
-
-      <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-        © 2024 Gain Chain. All rights reserved.
-      </div>
     </MDBFooter>
   );
 }

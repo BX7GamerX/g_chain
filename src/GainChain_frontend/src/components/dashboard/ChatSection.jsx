@@ -10,7 +10,7 @@ const developerConnections = [
 
 const ChatSection = ({ selectedConnection, messages, onSend }) => (
   <div className="bg-white p-6 rounded-md shadow-md max-w-md mx-auto">
-    <h3 className="text-xl font-bold text-teal-500 mb-4">{selectedConnection.name}'s Chat</h3>
+    <h3 className="text-xl font-bold text-[#004BA8] mb-4">{selectedConnection.name}'s Chat</h3>
     <div className="h-80 overflow-y-scroll border-b border-gray-200 mb-4">
       <ul>
         {messages.map((msg, index) => (
@@ -24,7 +24,7 @@ const ChatSection = ({ selectedConnection, messages, onSend }) => (
       <input
         type="text"
         placeholder="Type a message..."
-        className="w-full p-2 rounded-md bg-gray-100 text-teal-700 border border-gray-300"
+        className="w-full p-2 rounded-md bg-gray-100 text-[#333333] border border-gray-300"
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             onSend(e.target.value);
@@ -33,7 +33,7 @@ const ChatSection = ({ selectedConnection, messages, onSend }) => (
         }}
       />
       <button
-        className="bg-teal-500 text-white py-2 px-4 mt-2 rounded-md hover:bg-teal-600 transition"
+        className="bg-[#00bfae] text-white py-2 px-4 mt-2 rounded-md hover:bg-[#004BA8] transition"
         onClick={() => {
           const input = document.querySelector('#chat-input');
           if (input && input.value) {

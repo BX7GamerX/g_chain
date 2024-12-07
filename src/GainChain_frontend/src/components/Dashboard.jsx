@@ -6,7 +6,6 @@ import {
   Folder,
   MessageCircle,
   LogOut,
-  Settings as SettingsIcon,
 } from "lucide-react";
 import Sidebar from "../components/dashboard/Sidebar.jsx";
 import Header from "../components/dashboard/Header.jsx";
@@ -14,9 +13,10 @@ import Overview from "../components/dashboard/Overview.jsx";
 import NewProject from "../components/dashboard/newproject.jsx";
 import MyProjects from "../components/dashboard/MyProjects.jsx";
 import ChatSection from "../components/dashboard/ChatSection.jsx";
-import Settings from "./dashboard/Settings.jsx";
+import { useTheme } from "../context/ThemeContext"; // Import useTheme
 
 const Dashboard = () => {
+  const { darkMode } = useTheme(); // Get darkMode from context
   const [activeTab, setActiveTab] = useState("Overview");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -51,9 +51,8 @@ const Dashboard = () => {
       case "Chat Section":
         return <ChatSection messages={mockData.chatMessages} />;
       case "Settings":
-        return <Settings />;
+        return null;
       case "Logout":
-        // Simulate logout
         window.location.href = "/login";
         break;
       default:
@@ -67,11 +66,10 @@ const Dashboard = () => {
     { icon: Folder, label: "My Projects" },
     { icon: MessageCircle, label: "Chat Section" },
     { icon: LogOut, label: "Logout" },
-    { icon: SettingsIcon, label: "Settings" },
   ];
 
   return (
-    <div className="flex h-screen bg-white text-black">
+    <div className={`flex h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-[#F0F4F8] text-[#333333]'}`}>
       <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -84,7 +82,7 @@ const Dashboard = () => {
           companyName="Gain Chain Inc."
           toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         />
-        <main className="flex-1 overflow-y-auto bg-white">
+        <main className={`flex-1 overflow-y-auto ${darkMode ? 'bg-gray-800' : 'bg-[#F0F4F8]'}`}>
           <div className="container mx-auto px-6 py-8">
             <motion.div
               key={activeTab}
@@ -93,7 +91,7 @@ const Dashboard = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h1 className="text-3xl font-bold mb-6 text-teal-600">
+              <h1 className="text-3xl font-bold mb-6">
                 {activeTab}
               </h1>
               {renderContent()}

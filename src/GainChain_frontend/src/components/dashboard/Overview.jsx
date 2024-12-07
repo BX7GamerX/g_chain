@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import { PieChart, Pie, Cell, Tooltip as PieTooltip, Legend as PieLegend } from "recharts";
+import { useTheme } from '../../context/ThemeContext';
 
 const OverviewPage = ({ user }) => {
+  const { darkMode, customColor } = useTheme();
   const [userData, setUserData] = useState([]);
   const [coinsData, setCoinsData] = useState([]);
 
@@ -11,7 +13,12 @@ const OverviewPage = ({ user }) => {
     { name: "Jan", posts: 20, likes: 50, shares: 15 },
     { name: "Feb", posts: 25, likes: 60, shares: 20 },
     { name: "Mar", posts: 30, likes: 70, shares: 25 },
-  ];
+  ].map(data => ({
+    ...data,
+    posts: darkMode ? data.posts * 0.8 : data.posts, // Slightly adjust values based on theme
+    likes: darkMode ? data.likes * 0.8 : data.likes,
+    shares: darkMode ? data.shares * 0.8 : data.shares,
+  }));
 
   const blockchainData = [
     { name: "Jan", coins: 10 },
@@ -36,19 +43,19 @@ const OverviewPage = ({ user }) => {
   const COLORS = ["#00bfae", "#4db6ac", "#26a69a"];
 
   return (
-    <div className="bg-white text-teal-100 min-h-screen px-6 py-8">
+    <div className={`bg-[#F0F4F8] text-[#333333] min-h-screen px-6 py-8 ${darkMode ? 'bg-gray-900 text-white' : 'bg-[#F0F4F8] text-[#333333]'}`}>
       {/* Main Overview Section with White Background */}
-      <div className="bg-white text-teal-900 p-6 rounded-lg shadow-lg">
+      <div className="bg-white text-[#333333] p-6 rounded-lg shadow-lg">
         {/* Welcome Message */}
         <div className="mb-8">
-          <p className="mt-2 text-teal-600">
+          <p className="mt-2 text-[#004BA8]">
             Explore your activity and contributions in the Gain Chain AI and Blockchain community.
           </p>
         </div>
 
         {/* Main Graph Section */}
-        <div className="bg-teal-800 p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-2xl font-semibold text-teal-50 mb-4">Your Activity Over Time</h2>
+        <div className="bg-[#3E78B2] p-6 rounded-lg shadow-md mb-8">
+          <h2 className="text-2xl font-semibold text-white mb-4">Your Activity Over Time</h2>
           <LineChart
             width={800}
             height={300}
@@ -67,8 +74,8 @@ const OverviewPage = ({ user }) => {
         </div>
 
         {/* Doughnut Chart Section */}
-        <div className="bg-teal-800 p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold text-teal-50 mb-4">Activity Breakdown</h2>
+        <div className="bg-[#3E78B2] p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold text-white mb-4">Activity Breakdown</h2>
           <PieChart width={400} height={400}>
             <Pie
               data={pieData}
@@ -91,12 +98,12 @@ const OverviewPage = ({ user }) => {
         </div>
 
         {/* Additional AI and Blockchain Highlights */}
-        <div className="mt-12 bg-teal-800 p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-teal-50 mb-4">Community Highlights</h2>
-          <ul className="text-teal-300 space-y-3">
-            <li>📈 Total Active Users: <span className="text-teal-200">5,230</span></li>
-            <li>🔗 Latest Blockchain Transactions: <span className="text-teal-200">1,045</span></li>
-            <li>🤖 AI-Generated Insights: <span className="text-teal-200">123 summaries</span></li>
+        <div className="mt-12 bg-[#3E78B2] p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold text-white mb-4">Community Highlights</h2>
+          <ul className="text-[#333333] space-y-3">
+            <li>📈 Total Active Users: <span className="text-[#00bfae]">5,230</span></li>
+            <li>🔗 Latest Blockchain Transactions: <span className="text-[#00bfae]">1,045</span></li>
+            <li>🤖 AI-Generated Insights: <span className="text-[#00bfae]">123 summaries</span></li>
           </ul>
         </div>
       </div>
