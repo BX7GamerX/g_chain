@@ -2,6 +2,7 @@
     "compilerOptions": {
         "strict": true,
         "target": "ES2020",
+        "types": ["vite/client"],
         "experimentalDecorators": true,
         "strictPropertyInitialization": false,
         "moduleResolution": "node",

@@ -1,37 +1,36 @@
-use ic_cdk::api::caller;
+// src/controllers/auth_controller.rs
 use ic_cdk_macros::{query, update};
 use serde_json::json;
-use candid::Principal;
 
-#[update]
-pub async fn authenticate_user(principal_id: Principal) -> String {
-    // Verify the principal is valid
-    if principal_id == Principal::anonymous() {
-        return json!({
-            "status": "error",
-            "message": "Invalid principal ID"
-        }).to_string();
-    }
-
-    // Here you would typically:
-    // 1. Check if user exists in your system
-    // 2. Create user if they don't exist
-    // 3. Generate session or token
-    // 4. Return user data
-
-    json!({
+/// Handles login initiation via Internet Identity.
+#[query]
+pub fn login() -> String {
+    let response = json!({
         "status": "success",
-        "message": "Authentication successful",
-        "principal_id": principal_id.to_string(),
-        "authenticated": true
-    }).to_string()
+        "message": "Login with Internet Identity initiated",
+        "internet_identity_url": "https://identity.ic0.app/#authorize"
+    });
+
+    response.to_string()
 }
 
+/// Simulates a logout endpoint.
 #[update]
-pub async fn logout(principal_id: Principal) -> String {
-    // Implement logout logic (clear sessions, etc.)
-    json!({
+pub fn logout() -> String {
+    let response = json!({
         "status": "success",
-        "message": "Logged out successfully"
-    }).to_string()
+        "message": "User logged out successfully"
+    });
+
+    response.to_string()
+}
+
+pub fn authenticate_user(principal_id: String) -> String {
+    // In production, verify principal_id with Internet Identity
+    let response = json!({
+        "status": "success",
+        "message": "User authenticated",
+        "principal_id": principal_id,
+    });
+    serde_json::to_string(&response).expect("Failed to serialize authentication response")
 }
