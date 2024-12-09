@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FaUserCircle } from "react-icons/fa"; // Import the profile icon
+import { FaUserCircle, FaPlus } from "react-icons/fa"; // Import the profile icon and plus icon
 import { toast, ToastContainer } from "react-toastify"; // Import Toastify
 import "react-toastify/dist/ReactToastify.css"; // Import default styles for Toastify
+import { motion } from "framer-motion"; // Add this import if not already present
 
 export default function TestimonialCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -10,22 +11,24 @@ export default function TestimonialCarousel() {
 
   const testimonials = [
     {
-      quote: "Gain Chain's AI-powered blockchain transforms user engagement and interaction with unmatched security.",
-      name: "John Doe",
-      role: "Blockchain Developer at Gain Chain",
-      image: "", // Placeholder for an image URL
+      quote: "Gain Chain's AI is absolutely incredible. If you like Copilot (or if you don't), you'll be blown away by this.",
+      name: "Alex Chen",
+      role: "Senior Developer",
     },
     {
-      quote: "Gain Chain’s decentralized protocols are revolutionizing how we think about blockchain security and scalability.",
-      name: "Jane Smith",
-      role: "AI Specialist at Gain Chain",
-      image: "", // Placeholder for an image URL
+      quote: "Started using Gain Chain yesterday & I'm blown away. It's how blockchain AI should feel. I'm completely hooked now.",
+      name: "Sarah Miller",
+      role: "Tech Lead",
     },
     {
-      quote: "I love how Gain Chain allows users to earn while interacting with content on a fully decentralized platform.",
-      name: "Alex Thompson",
-      role: "Full-Stack Developer at Gain Chain",
-      image: "", // Placeholder for an image URL
+      quote: "The Gain Chain completion while coding is occasionally so magic it defies reality - about ~25% of the time it's anticipating exactly what I want to do.",
+      name: "James Wilson",
+      role: "Blockchain Engineer",
+    },
+    {
+      quote: "After many recommendations, I finally switched to Gain Chain and... wow! There is no going back. 🚀",
+      name: "Emma Thompson",
+      role: "Full Stack Developer",
     },
   ];
 
@@ -61,78 +64,119 @@ export default function TestimonialCarousel() {
     }
   };
 
+  const scrollingStyles = `
+    .scrolling-container {
+      height: 400px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .scrolling-content {
+      animation: scroll 30s linear infinite;
+    }
+
+    .scrolling-content:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .testimonial-card {
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      background-color: #0088cc !important;
+      transform: scale(1.02);
+    }
+  `;
+
   return (
     <section className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:px-12" style={{ backgroundColor: "#001F54" }}>
-      {/* Bot image peeking */}
+      {/* Bot image with swing animation */}
       <img
-        src="src/images/bot.png" // Replace with the path to your bot image
+        src="src/images/bot.png"
         alt="Peeping Bot"
-        className="absolute top-9 right-8 w-150 h-50" // Adjusted size and opacity with blur
+        className="absolute top-9 right-8 w-250 h-150 animate-swing glow-effect"
       />
 
-      <div className="mx-auto max-w-4xl text-center">
-        <img alt="Gain Chain Logo" src="src/images/neuro.png" className="mx-auto h-16" />
-        <h2 className="mt-6 text-3xl font-bold text-white sm:text-4xl">What People Are Saying</h2>
-        <p className="mt-4 text-lg text-blue-200 sm:mt-6">Join the conversation and discover how Gain Chain is reshaping blockchain technology.</p>
+      <div className="mx-auto max-w-4xl">
+        {/* Logo and chat bubble container */}
+        <div className="flex items-center gap-6 mb-8 relative">
+          <img 
+            alt="Gain Chain Logo" 
+            src="src/images/neuro.png" 
+            className="h-27 animate-heartbeat"
+          />
+          
+          {/* Chat bubble */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="chat-bubble relative bg-blue-500/20 p-4 rounded-lg border border-blue-400/30"
+          >
+            <motion.p 
+              className="text-blue-200 text-lg font-medium"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              Your feedback gives us life! 💙
+            </motion.p>
+            {/* Triangle pointer */}
+            <div className="absolute left-[-10px] top-1/2 transform -translate-y-1/2 
+                          w-0 h-0 border-t-[10px] border-t-transparent 
+                          border-r-[10px] border-r-blue-500/20 
+                          border-b-[10px] border-b-transparent">
+            </div>
+          </motion.div>
+        </div>
 
-        <div className="relative mt-10 overflow-hidden">
-          <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="flex-shrink-0 w-full px-4 sm:px-8 lg:px-12">
-                <div className="p-8 rounded-xl shadow-lg" style={{ backgroundColor: "#00A7E1" }}>
-                  <blockquote className="text-center text-lg font-medium text-white sm:text-xl">
-                    <p>“{testimonial.quote}”</p>
-                  </blockquote>
-                  <figcaption className="mt-8 text-center">
-                    <div
-                      className="mx-auto h-20 w-20 rounded-full flex items-center justify-center border-4"
-                      style={{ borderColor: "#40E0D0", backgroundColor: "#fff" }}
-                    >
-                      {/* Display the profile icon if no image is provided */}
-                      {testimonial.image ? (
-                        <img
-                          alt={testimonial.name}
-                          src={testimonial.image}
-                          className="h-full w-full object-cover rounded-full"
-                        />
-                      ) : (
-                        <FaUserCircle className="text-blue-500 w-12 h-12" />
-                      )}
+        <h2 className="text-3xl font-bold text-white text-center sm:text-4xl mb-8">What People Are Saying</h2>
+        
+        {/* New scrolling testimonials container */}
+        <div className="testimonials-scroll-container">
+          <div className="testimonials-scroll-content">
+            {[...testimonials, ...testimonials].map((testimonial, index) => (
+              <div 
+                key={index} 
+                className="testimonial-item"
+              >
+                <div className="flex items-start gap-4 p-4">
+                  <div className="flex-shrink-0">
+                    <FaUserCircle className="text-gray-400 w-10 h-10" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-white">{testimonial.name}</span>
+                      <span className="text-blue-300">·</span>
+                      <span className="text-blue-300">{testimonial.role}</span>
                     </div>
-                    <div className="mt-4 text-base text-white">
-                      <div className="font-semibold">{testimonial.name}</div>
-                      <div className="text-sm" style={{ color: "#40E0D0" }}>
-                        {testimonial.role}
-                      </div>
-                    </div>
-                  </figcaption>
+                    <p className="text-white mt-2">{testimonial.quote}</p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Pagination Dots */}
-        <div className="mt-8 flex justify-center space-x-2">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              className={`h-3 w-3 rounded-full ${currentIndex === index ? "bg-blue-500" : "bg-blue-300 hover:bg-blue-400"}`}
-              onClick={() => setCurrentIndex(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            ></button>
-          ))}
+        {/* Updated Add Testimonial button with icon and glow effect */}
+        <div className="mt-12 flex justify-center">
+          <button
+            onClick={() => setIsFormVisible((prev) => !prev)}
+            className="px-6 py-3 bg-blue-500 text-white font-semibold rounded shadow-lg 
+                     hover:bg-blue-600 transition duration-200 flex items-center gap-2
+                     animate-glow relative overflow-hidden group"
+          >
+            <FaPlus className="w-4 h-4" />
+            {isFormVisible ? "Hide Form" : "Add Testimonial"}
+            <div className="absolute inset-0 glow-ring"></div>
+          </button>
         </div>
-      </div>
-
-      {/* Button to show/hide the form */}
-      <div className="mt-12 flex justify-center">
-        <button
-          onClick={() => setIsFormVisible((prev) => !prev)}
-          className="px-6 py-3 bg-blue-500 text-white font-semibold rounded shadow-lg hover:bg-blue-600 transition duration-200"
-        >
-          {isFormVisible ? "Hide Form" : "Add Testimonial"}
-        </button>
       </div>
 
       {/* Display the form only when isFormVisible is true */}
@@ -192,6 +236,138 @@ export default function TestimonialCarousel() {
           }
           .Toastify__toast--error {
             background-color: #dc3545; /* Red for error */
+          }
+
+          /* Swing animation for bot */
+          @keyframes swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+          }
+
+          .animate-swing {
+            animation: swing 3s ease-in-out infinite;
+          }
+
+          /* Glow effect for bot and button */
+          .glow-effect {
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+          }
+
+          /* Button glow ring */
+          .glow-ring::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, #fff, transparent, #fff);
+            animation: rotate-glow 2s linear infinite;
+            opacity: 0.7;
+          }
+
+          @keyframes rotate-glow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          /* Smooth sliding animation for testimonials */
+          @keyframes smooth-slide {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+          }
+
+          .animate-smooth-slide {
+            animation: smooth-slide 0.5s ease-out;
+          }
+
+          /* Enhanced heartbeat animation */
+          @keyframes heartbeat {
+            0% {
+              transform: scale(1);
+            }
+            14% {
+              transform: scale(1.3);
+            }
+            28% {
+              transform: scale(1);
+            }
+            42% {
+              transform: scale(1.3);
+            }
+            70% {
+              transform: scale(1);
+            }
+          }
+
+          .animate-heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+          }
+
+          .testimonials-scroll-container {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+          }
+
+          .testimonials-scroll-content {
+            animation: scrollVertical 40s linear infinite;
+          }
+
+          .testimonials-scroll-content:hover {
+            animation-play-state: paused;
+          }
+
+          @keyframes scrollVertical {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+          }
+
+          .testimonial-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+          }
+
+          .testimonial-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+          }
+
+          /* Make the scroll container have a gradient fade at top and bottom */
+          .testimonials-scroll-container::before,
+          .testimonials-scroll-container::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100px;
+            z-index: 1;
+            pointer-events: none;
+          }
+
+          .testimonials-scroll-container::before {
+            top: 0;
+            background: linear-gradient(to bottom, #001F54, transparent);
+          }
+
+          .testimonials-scroll-container::after {
+            bottom: 0;
+            background: linear-gradient(to top, #001F54, transparent);
+          }
+
+          .chat-bubble {
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                       0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            animation: float 6s ease-in-out infinite;
+          }
+
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
           }
         `}
       </style>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { motion, useAnimation } from 'framer-motion';
 import {
   ArrowPathIcon,
   CloudArrowUpIcon,
@@ -54,12 +55,45 @@ export default function FeatureSection() {
     config: { tension: 300, friction: 20 },
   });
 
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      controls.start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: 'easeOut' },
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [controls]);
+
   return (
     <div className="relative isolate overflow-hidden bg-[#001F54] py-24 sm:py-32">
       {/* Fancy Title */}
       <div className="text-center mb-16">
         <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00A7E1] via-[#40E0D0] to-[#00A7E1]">
-          Discover Our Amazing Features
+          <motion.span
+            className="inline-block"
+            animate={{
+              textShadow: [
+                "0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa",
+                "0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa",
+                "0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa",
+              ],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+          >
+            Discover
+          </motion.span>{" "}
+          Our Amazing Features
         </h2>
         <p className="mt-4 text-lg text-white">
           Explore how Gain Chain revolutionizes blockchain technology with
@@ -73,9 +107,12 @@ export default function FeatureSection() {
           {/* Feature Cards */}
           <div className="w-full lg:w-1/2 space-y-8">
             {features.map((feature, index) => (
-              <animated.div
+              <motion.div
                 key={index}
-                style={index === activeFeature ? cardAnimation : undefined}
+                animate={controls}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
                 className="relative p-6 bg-[#002C72] text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out"
                 onMouseEnter={() => setActiveFeature(index)}
                 onMouseLeave={() => setActiveFeature(null)}
@@ -89,7 +126,7 @@ export default function FeatureSection() {
                 {activeFeature === index && (
                   <p className="mt-4 text-white">{feature.description}</p>
                 )}
-              </animated.div>
+              </motion.div>
             ))}
           </div>
 
@@ -117,3 +154,18 @@ export default function FeatureSection() {
     </div>
   );
 }
+
+<style jsx>{`
+  @keyframes glow {
+    0%, 100% {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .animate-glow {
+    animation: glow 2s infinite;
+  }
+`}</style>
