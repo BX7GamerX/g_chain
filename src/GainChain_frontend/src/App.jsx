@@ -7,6 +7,8 @@ import SignUpPage from './components/signup';
 import LoginPage from './components/LoginPage';
 import FolderPage from './components/dashboard/Folderpage';
 import GCHCoinInfo from './components/gchcoininfo';
+import NewProject from './components/dashboard/newproject';
+import Preview from './components/dashboard/Preview';
 import { ThemeProvider } from './context/ThemeContext';
 import './index.css';
 
@@ -23,6 +25,8 @@ const App = () => {
             <Route path="/profile" element={<Dashboard />} />
             <Route path="/gch-coin" element={<GCHCoinInfo />} />
             <Route path="/folder/:folderName" element={<FolderPage />} />
+            <Route path="/newproject" element={<NewProject />} />
+            <Route path="/preview" element={<Preview />} />
           </Routes>
         </div>
       </Router>
