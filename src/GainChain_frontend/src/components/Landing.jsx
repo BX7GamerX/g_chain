@@ -8,6 +8,7 @@ import Header from './Landing/Header';
 import Contact from './Landing/contact';
 import Footer from './Landing/Footer';
 import FAQ from './Landing/FAQ';
+import Teams from './Landing/Teams';
 
 
 const Landing = () => {
@@ -20,6 +21,7 @@ const Landing = () => {
         <TestimonialSlider />
         <Contact />
         <NewsSection />
+        <Teams />
         <FAQ />
         <Footer />
     </div>
